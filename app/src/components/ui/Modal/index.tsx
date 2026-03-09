@@ -50,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, closeMo
 					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
-			{children}
+			<IonContent className="modern-modal-content">{children}</IonContent>
 		</IonModal>
 	);
 };

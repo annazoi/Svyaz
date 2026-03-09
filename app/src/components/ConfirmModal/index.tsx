@@ -47,7 +47,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose, title, onC
 					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
-			{children}
+			<IonContent className="modern-modal-content">{children}</IonContent>
 		</IonModal>
 	);
 };

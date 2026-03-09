@@ -138,7 +138,7 @@ const ChatOptions: React.FC<ChatOptionsProps> = ({ closeModal, chat, isLoading }
 	};
 
 	return (
-		<IonContent className="chat-options-container">
+		<div className="chat-options-container">
 			<div className="animate-in">
 				{/* {!isLoading && <IonProgressBar type="indeterminate" style={{ marginBottom: '20px' }} />} */}
 
@@ -242,7 +242,7 @@ const ChatOptions: React.FC<ChatOptionsProps> = ({ closeModal, chat, isLoading }
 					)}
 				</div>
 			</div>
-		</IonContent>
+		</div>
 	);
 };
 
