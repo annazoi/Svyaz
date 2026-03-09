@@ -28,15 +28,28 @@ import Chat from './pages/chats/chat';
 import { authStore } from './store/auth';
 import Settings from './components/Menu/Settings';
 import Account from './components/Menu/Settings/Account';
+import Menu from './components/Menu';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
 const App: React.FC = () => {
-	const { isLoggedIn } = authStore((store): any => store);
+	const { isLoggedIn } = authStore((store: any) => store);
+
+	useEffect(() => {
+		const savedTheme = localStorage.getItem('theme');
+		if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+			document.body.classList.add('dark');
+		} else {
+			document.body.classList.remove('dark');
+		}
+	}, []);
+
 	return (
 		<IonApp>
 			<IonReactRouter>
-				<IonRouterOutlet>
+				{isLoggedIn && <Menu />}
+				<IonRouterOutlet id="main-content">
 					{isLoggedIn ? (
 						<>
 							{/* <IonTabs> */}

@@ -1,29 +1,63 @@
 .image-container {
-	display: grid;
-	margin: 0 auto;
+	display: flex;
+	margin: 20px auto;
 	justify-content: center;
 	align-items: center;
+	width: 120px;
+	height: 120px;
+	border-radius: 32px;
+	background: var(--oil-green-50);
+	border: 2px dashed var(--oil-green-200);
+	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	cursor: pointer;
+}
+
+body.dark .image-container {
+	background: var(--ion-color-step-100);
+	border-color: var(--oil-green-800);
+}
+
+.image-container:hover {
+	transform: scale(1.05);
+	border-color: var(--oil-green-400);
+	background: var(--oil-green-100);
 }
 
 .icon {
-	color: var(--ion-color-primary);
+	color: var(--oil-green-400);
 	font-size: 3rem;
-	cursor: pointer;
 }
 
 .image-input {
 	visibility: hidden;
+	position: absolute;
 }
 
 .image-preview {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+	width: 130px;
+	height: 130px;
+	border-radius: 38px;
 	display: flex;
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid black;
+	border: 3px solid var(--oil-green-400);
 	background-color: white;
 	object-fit: cover;
+	box-shadow: var(--fantasy-glow);
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+.image-preview:hover {
+	transform: scale(1.05) rotate(2deg);
+}
+
+.image-picker-text {
+	text-align: center;
+	color: var(--oil-green-400);
+	font-size: 14px;
+	font-weight: 600;
+	margin-top: -8px;
+	margin-bottom: 20px;
 }

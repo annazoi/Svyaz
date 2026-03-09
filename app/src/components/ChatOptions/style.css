@@ -1,4 +1,55 @@
-.chat-members-content ion-item {
-	--background: var(--ion-color-modal);
-	margin-top: 1rem;
+.chat-options-container {
+	--background: var(--ion-background-color);
+	padding-bottom: 40px;
+}
+
+.chat-options-form-card {
+	background: var(--ion-item-background);
+	border-radius: 24px;
+	padding: 8px;
+	margin: 16px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--ion-border-color);
+}
+
+.chat-members-section {
+	margin: 24px 16px;
+}
+
+.chat-members-list {
+	background: var(--ion-item-background);
+	border-radius: 20px;
+	overflow: hidden;
+	border: 1px solid var(--ion-border-color);
+	margin-top: 12px;
+}
+
+.member-item {
+	--padding-start: 12px;
+	--inner-padding-end: 12px;
+	--background: transparent;
+}
+
+.member-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 12px;
+	margin-right: 12px;
+}
+
+.remove-member-btn {
+	--color: var(--ion-color-danger);
+	font-size: 20px;
+}
+
+.chat-options-submit-btn {
+	--border-radius: 14px;
+	--padding-top: 16px;
+	--padding-bottom: 16px;
+	margin-top: 24px;
+	font-weight: 700;
+}
+
+.search-section-container {
+	margin: 10px;
 }

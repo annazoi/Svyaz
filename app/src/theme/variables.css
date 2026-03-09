@@ -3,17 +3,29 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
-	--ion-color-reserve: rgb(0, 0, 0);
+	--ion-color-reverse: rgb(0, 0, 0);
 	--ion-color-placeholder: #76857d;
 	--ion-color-modal: #d6e1db;
 	--ion-color-settings: #b5c3bb;
 
+	/* Gorgeous Oil Green Palette */
+	--oil-green-50: #f1f6f3;
+	--oil-green-100: #e0ede6;
+	--oil-green-200: #c4dcd0;
+	--oil-green-300: #9ac2af;
+	--oil-green-400: #688174;
+	--oil-green-500: #5a7065;
+	--oil-green-600: #4e6158;
+	--oil-green-700: #42524a;
+	--oil-green-800: #37433d;
+	--oil-green-900: #2d3732;
+
 	/** primary **/
-	--ion-color-primary: #688174;
+	--ion-color-primary: var(--oil-green-400);
 	--ion-color-primary-rgb: 104, 129, 116;
 	--ion-color-primary-contrast: #ffffff;
 	--ion-color-primary-contrast-rgb: 255, 255, 255;
-	--ion-color-primary-shade: #5b7266;
+	--ion-color-primary-shade: var(--oil-green-500);
 	--ion-color-primary-tint: #778e82;
 
 	/** secondary **/
@@ -41,33 +53,44 @@ http://ionicframework.com/docs/theming/ */
 	--ion-color-warning-tint: #ffcf38;
 
 	/** danger **/
-	--ion-color-danger: #7e0000;
-	--ion-color-danger-rgb: 126, 0, 0;
+	--ion-color-danger: #ef4444;
+	--ion-color-danger-rgb: 239, 68, 68;
 	--ion-color-danger-contrast: #ffffff;
 	--ion-color-danger-contrast-rgb: 255, 255, 255;
-	--ion-color-danger-shade: #6f0000;
-	--ion-color-danger-tint: #8b1a1a;
+	--ion-color-danger-shade: #dc2626;
+	--ion-color-danger-tint: #f87171;
 
 	/** Layout Variables **/
-	--ion-background-color: #d6e1db;
-	--ion-text-color: #2c3e35;
-	--ion-border-color: rgba(104, 129, 116, 0.15);
+	--ion-background-color: #f7faf9;
+	--ion-text-color: #1a2420;
+	--ion-border-color: rgba(104, 129, 116, 0.1);
 
 	--ion-item-background: #ffffff;
 	--ion-card-background: #ffffff;
-	--ion-toolbar-background: #688174;
-	--ion-toolbar-color: #ffffff;
+	--ion-toolbar-background: #ffffff;
+	--ion-toolbar-color: var(--ion-text-color);
+
+	/* Fantasy Extras */
+	--fantasy-glow: 0 0 15px rgba(104, 129, 116, 0.3);
+	--fantasy-shadow: 0 10px 40px -10px rgba(104, 129, 116, 0.2);
 }
 
 /** Dark Mode **/
 body.dark {
-	--ion-background-color: #000000;
+	--ion-background-color: #0c0f0e;
 	--ion-text-color: #e2e9e5;
-	--ion-border-color: rgba(255, 255, 255, 0.1);
-	--ion-item-background: #0c0d0c;
-	--ion-card-background: #141615;
-	--ion-toolbar-background: #000000;
+	--ion-border-color: rgba(104, 129, 116, 0.2);
+	--ion-item-background: #141a18;
+	--ion-card-background: #1a2320;
+	--ion-toolbar-background: #0c0f0e;
 	--ion-toolbar-color: #ffffff;
+
+	--ion-color-reverse: white;
+	--ion-color-step-50: #141a18;
+	--ion-color-step-100: #1d2623;
+
+	--fantasy-glow: 0 0 20px rgba(104, 129, 116, 0.4);
+	--fantasy-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* 
@@ -98,38 +121,6 @@ ion-content::part(background) {
 	background: transparent !important;
 }
 
-.bg-modern::after,
-.bg-aurora::after,
-ion-content.bg-modern::after,
-ion-content.bg-aurora::after {
-	content: '';
-	position: fixed;
-	top: -10%;
-	right: -10%;
-	width: 90%;
-	height: 90%;
-	background: radial-gradient(circle, rgba(104, 129, 116, 0.5) 0%, transparent 60%);
-	z-index: -1;
-	pointer-events: none;
-	animation: aurora-glow-1 15s infinite alternate ease-in-out;
-}
-
-.bg-modern::before,
-.bg-aurora::before,
-ion-content.bg-modern::before,
-ion-content.bg-aurora::before {
-	content: '';
-	position: fixed;
-	bottom: -15%;
-	left: -15%;
-	width: 80%;
-	height: 80%;
-	background: radial-gradient(circle, rgba(151, 167, 158, 0.4) 0%, transparent 60%);
-	z-index: -1;
-	pointer-events: none;
-	animation: aurora-glow-2 20s infinite alternate-reverse ease-in-out;
-}
-
 @keyframes aurora-glow-1 {
 	0% {
 		transform: translate(0, 0) scale(1);
@@ -152,45 +143,107 @@ ion-content.bg-aurora::before {
 	}
 }
 
-/* Animation Utilities */
-.animate-in {
-	opacity: 0;
-	animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Fantasy & Modern Effects */
+.glass-effect {
+	background: rgba(255, 255, 255, 0.45) !important;
+	backdrop-filter: blur(12px) saturate(160%) !important;
+	-webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	box-shadow: var(--fantasy-shadow) !important;
 }
 
-@keyframes slideUpFade {
-	0% {
+body.dark .glass-effect {
+	background: rgba(20, 26, 24, 0.6) !important;
+	border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.glow-on-hover:hover {
+	box-shadow: var(--fantasy-glow);
+	transform: translateY(-2px);
+}
+
+/* Page Transitions & Entrances */
+.animate-slide-up {
+	animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes slideUp {
+	from {
 		opacity: 0;
-		transform: translateY(30px);
+		transform: translateY(20px);
 	}
-	100% {
+	to {
 		opacity: 1;
 		transform: translateY(0);
 	}
 }
 
-/* Modern Input Fixes */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Twitter-like Layout Grid */
+.layout-grid {
+	display: grid;
+	grid-template-columns: 80px 1fr;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+	.layout-grid {
+		grid-template-columns: 260px 1fr 350px;
+	}
+}
+
+@media (max-width: 768px) {
+	.layout-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Gradient Backgrounds */
+.bg-fantasy {
+	background: linear-gradient(135deg, var(--oil-green-50) 0%, #ffffff 100%);
+}
+
+body.dark .bg-fantasy {
+	background: radial-gradient(circle at top right, #1a2320 0%, #0c0f0e 100%);
+}
+/* Fantasy Input Styling */
 .modern-input {
-	--background: var(--ion-color-light) !important;
-	--border-radius: 16px !important;
-	--padding-start: 16px !important;
-	--padding-end: 16px !important;
+	--background: var(--ion-item-background) !important;
+	--border-radius: 22px !important;
+	--padding-start: 20px !important;
+	--padding-end: 20px !important;
 	--highlight-height: 0;
-	margin-bottom: 12px;
+	margin-bottom: 24px;
+	/* border: 1.5px solid var(--oil-green-50); */
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: var(--fantasy-shadow);
+	border-radius: 20px;
+}
+.modern-input:focus-within {
+	border-color: var(--oil-green-400);
+	box-shadow: var(--fantasy-glow);
+	transform: translateY(-2px);
 }
 
-/* Glassmorphism Fixes */
-.glass-effect {
-	--background: rgba(255, 255, 255, 0.1) !important;
-	background: rgba(255, 255, 255, 0.1) !important;
-	backdrop-filter: blur(15px) saturate(150%);
-	-webkit-backdrop-filter: blur(15px) saturate(150%);
-	border: 1px solid rgba(255, 255, 255, 0.1) !important;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+body.dark .modern-input {
+	--background: var(--ion-color-step-50) !important;
+	border-color: var(--oil-green-800);
 }
 
-body.dark .glass-effect {
-	--background: rgba(0, 0, 0, 0.3) !important;
-	background: rgba(0, 0, 0, 0.3) !important;
-	border: 1px solid rgba(255, 255, 255, 0.05) !important;
+body.dark .modern-input:focus-within {
+	border-color: var(--oil-green-300);
 }

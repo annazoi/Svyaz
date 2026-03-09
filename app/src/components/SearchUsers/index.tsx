@@ -1,6 +1,6 @@
-import { IonAvatar, IonCard, IonCardContent, IonCheckbox, IonImg, IonItem, IonLabel, IonSearchbar } from '@ionic/react';
+import { IonAvatar, IonCheckbox, IonImg, IonItem, IonLabel, IonSearchbar, IonText } from '@ionic/react';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { getUsers } from '../../services/users';
 import { authStore } from '../../store/auth';
 import userDefaultAvatar from '../../assets/user.png';
@@ -8,10 +8,10 @@ import './style.css';
 
 interface SearchUsersProps {
 	onUsersFiltered?: (users: any[]) => void;
-	placeholder: any;
+	placeholder: string;
 	className?: string;
 	type?: string;
-	handleSelectUser?: any;
+	handleSelectUser?: (e: any, userId: string) => void;
 	selectedUsers?: any[];
 	existingMembers?: any[];
 	style?: React.CSSProperties;
@@ -23,91 +23,76 @@ const SearchUsers: React.FC<SearchUsersProps> = ({
 	type,
 	handleSelectUser,
 	selectedUsers,
-	onUsersFiltered,
 	existingMembers,
+	onUsersFiltered,
 	style,
 }) => {
 	const { userId } = authStore((store: any) => store);
-
 	const [search, setSearch] = useState<string>('');
 
 	const { data } = useQuery({
 		queryKey: ['users'],
 		queryFn: () => getUsers(),
-		select: (data) => {
-			const users = data.users.filter((user: any) => {
-				return user.username.includes(search);
-			});
-			return users;
-		},
 	});
 
 	const filteredUsers = useMemo(() => {
-		if (!search) return [];
-		return data?.filter((user: any) => {
-			return user.username.includes(search);
+		if (!search.trim()) return [];
+		const users = data?.users || [];
+		return users.filter((user: any) => {
+			const isNotMe = user._id !== userId;
+			const matchesSearch = user.username.toLowerCase().includes(search.toLowerCase());
+			const notAlreadyMember = !existingMembers?.some((m: any) => m._id === user._id);
+			return isNotMe && matchesSearch && notAlreadyMember;
 		});
-	}, [search]);
-
-	const handleExistingUsers = useMemo(() => {
-		if (existingMembers) {
-			return data?.filter((user: any) => {
-				return !existingMembers.some((existingMember: any) => existingMember._id === user._id);
-			});
-		} else {
-			return data;
-		}
-	}, [existingMembers, data]);
+	}, [search, data, existingMembers, userId]);
 
 	useEffect(() => {
-		onUsersFiltered?.(filteredUsers || []);
-	}, [filteredUsers]);
-
-	useEffect(() => {
-		// console.log("selectedUsers", selectedUsers);
-	}, [selectedUsers]);
+		onUsersFiltered?.(filteredUsers);
+	}, [filteredUsers, onUsersFiltered]);
 
 	return (
-		<>
+		<div style={style} className={className}>
 			<IonSearchbar
 				onIonInput={(e) => setSearch(e.detail.value!)}
 				value={search}
-				debounce={1000}
-				onIonClear={() => {
-					setSearch('');
-				}}
+				debounce={500}
+				onIonClear={() => setSearch('')}
 				placeholder={placeholder}
-				className={`search-bar ${className}`}
+				className="search-bar-modern"
+				mode="ios"
 				color="light"
-				style={style}
-			></IonSearchbar>
+			/>
+
 			{type === 'group' && (
-				<IonCard className="search-users-container ">
-					{handleExistingUsers?.map((user: any, index: number) => (
-						<div key={index}>
-							{user._id !== userId && (
-								<IonCard color="secondary">
-									<IonCardContent className="ion-no-padding searched-user">
-										<IonItem lines="none" color="secondary">
-											<IonAvatar slot="start">
-												<IonImg src={user.avatar ? user.avatar : userDefaultAvatar} />
-											</IonAvatar>
-											<IonCheckbox
-												labelPlacement="start"
-												checked={selectedUsers?.includes(user._id)}
-												onIonChange={(e) => handleSelectUser(e, user._id)}
-											>
-												<IonLabel>{user.username}</IonLabel>
-											</IonCheckbox>
-										</IonItem>
-									</IonCardContent>
-								</IonCard>
-							)}
+				<div className="search-results-list animate-in">
+					{filteredUsers.length === 0 && search.trim() !== '' && (
+						<div style={{ padding: '24px', textAlign: 'center', opacity: 0.6 }}>
+							<IonText style={{ fontSize: '14px' }}>No users found for "{search}"</IonText>
 						</div>
+					)}
+
+					{filteredUsers.map((user: any) => (
+						<IonItem key={user._id} className="search-item" lines="full">
+							<IonAvatar slot="start">
+								<img src={user.avatar || userDefaultAvatar} alt={user.username} className="search-avatar" />
+							</IonAvatar>
+							<IonLabel>
+								<h2 style={{ fontWeight: '600' }}>{user.username}</h2>
+								<p style={{ fontSize: '12px' }}>{user.phone || 'No phone'}</p>
+							</IonLabel>
+							{handleSelectUser && (
+								<IonCheckbox
+									slot="end"
+									className="search-checkbox"
+									checked={selectedUsers?.includes(user._id)}
+									onIonChange={(e) => handleSelectUser(e, user._id)}
+								/>
+							)}
+						</IonItem>
 					))}
-				</IonCard>
+				</div>
 			)}
-		</>
+		</div>
 	);
 };
 

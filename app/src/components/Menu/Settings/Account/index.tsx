@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonInput, IonItem } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonContent, IonInput, IonItem, IonText } from '@ionic/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { getUser, updateUser } from '../../../../services/users';
@@ -13,6 +13,7 @@ import { registerSchema } from '../../../../validations-schemas/auth';
 import { RegisterConfig } from '../../../../validations-schemas/interfaces/user';
 import { useEffect } from 'react';
 import userDefaultAvatar from '../../../../assets/user.png';
+import Input from '../../../ui/Input';
 import HidePassword from '../../../HidePassword';
 import './style.css';
 
@@ -75,62 +76,57 @@ const Settings: React.FC = () => {
 	};
 
 	return (
-		<IonContent style={{ '--background': 'var(--ion-color-modal)' }}>
-			<IonCard style={{ '--background': 'var(--ion-color-settings)' }}>
-				<IonCardContent>
-					<Loading showLoading={isLoading} />
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<IonInput
-							labelPlacement="floating"
-							label="Enter Username"
-							className="ion-margin-top input-container"
-							{...register('username', { required: true })}
-						/>
-						{errors.username && (
-							<div className="auth-error-box">
-								<p className="auth-error-text">{errors.username?.message}</p>
-							</div>
-						)}
+		<IonContent className="account-container">
+			<div className="animate-in">
+				<div className="account-form-card">
+					<IonCardContent>
+						<Loading showLoading={isLoading} />
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<Input
+								label="Username"
+								register={register('username')}
+								className="account-input modern-input"
+								placeholder="What's your new username?"
+							/>
+							{errors.username && <div className="field-error">{errors.username.message}</div>}
 
-						<IonInput
-							labelPlacement="floating"
-							label="Enter Phone"
-							className="ion-margin-top input-container"
-							{...register('phone', { required: true })}
-						/>
-						{errors.phone && (
-							<div className="auth-error-box">
-								<p className="auth-error-text">{errors.phone?.message}</p>
-							</div>
-						)}
+							<Input
+								label="Phone Number"
+								register={register('phone')}
+								className="account-input modern-input"
+								placeholder="+1 234 567 890"
+							/>
+							{errors.phone && <div className="field-error">{errors.phone.message}</div>}
 
-						<HidePassword register={register} />
-						{errors.password && (
-							<div className="auth-error-box">
-								<p className="auth-error-text">{errors.password?.message}</p>
+							<div style={{ marginTop: '16px' }}>
+								<HidePassword register={register} />
 							</div>
-						)}
-						<ImagePicker
-							onChange={handleImage}
-							register={register}
-							value={storeAvatar ? getValues('avatar') : userDefaultAvatar}
-						></ImagePicker>
+							{errors.password && <div className="field-error">{errors.password.message}</div>}
 
-						<IonButton
-							id="open-toast"
-							type="submit"
-							className="ion-margin-top account-img"
-							expand="block"
-							style={{
-								color: 'white',
-							}}
-						>
-							Confirm Changes
-						</IonButton>
-					</form>
-					<Toast showToast={showToast} message={message} setShowToast={setShowToast} isError={isError} />
-				</IonCardContent>
-			</IonCard>
+							<IonText className="account-avatar-picker-title">Update Profile Picture</IonText>
+
+							<div style={{ display: 'flex', justifyContent: 'center' }}>
+								<ImagePicker
+									onChange={handleImage}
+									register={register}
+									value={storeAvatar ? getValues('avatar') : userDefaultAvatar}
+								/>
+							</div>
+
+							<IonButton
+								type="submit"
+								className="account-submit-btn"
+								expand="block"
+								disabled={isLoading}
+								color="primary"
+							>
+								{isLoading ? 'Saving Changes...' : 'Save Changes'}
+							</IonButton>
+						</form>
+					</IonCardContent>
+				</div>
+			</div>
+			<Toast showToast={showToast} message={message} setShowToast={setShowToast} isError={isError} />
 		</IonContent>
 	);
 };

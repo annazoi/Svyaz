@@ -21,6 +21,7 @@ import Toast from '../../../components/ui/Toast';
 import Logo from '../../../assets/logo.png';
 import './style.css';
 import Input from '../../../components/ui/Input';
+import { PiChatTeardropDotsFill } from 'react-icons/pi';
 
 const Login: React.FC = () => {
 	const router = useIonRouter();
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
 			<IonContent className="ion-padding modern-container bg-modern">
 				<div className="animate-in" style={{ marginTop: '5vh' }}>
 					<div className="auth-logo-container">
-						<img src={Logo} alt="logo" className="auth-logo" />
+						<PiChatTeardropDotsFill size={100} color="var(--ion-color-primary)" />
 					</div>
 
 					<div className="auth-header-text">

@@ -1,9 +1,40 @@
-/* ion-backdrop {
-  opacity: 0.9;
-  background: var(--ion-color-primary);
-} */
+ion-modal.modern-modal {
+	--border-radius: 32px 32px 0 0;
+	--height: 90%;
+	--backdrop-opacity: 0.5;
+}
 
-.modal-bg ion-card-content {
-	background: var(--ion-color-modal);
-	height: 100%;
+ion-modal::part(content) {
+	border-radius: 32px 32px 0 0;
+	box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+	ion-modal {
+		--border-radius: 32px;
+		--width: 450px;
+		--height: 70%;
+	}
+	ion-modal::part(content) {
+		border-radius: 32px;
+	}
+}
+
+.modal-header-toolbar {
+	--padding-top: 12px;
+	--padding-bottom: 12px;
+	--background: var(--ion-background-color);
+	border-bottom: 1px solid var(--ion-border-color);
+}
+
+.modal-title {
+	font-weight: 800 !important;
+	letter-spacing: -0.5px !important;
+	font-size: 20px !important;
+	color: var(--ion-text-color) !important;
+}
+
+.modal-close-btn {
+	--color: var(--ion-color-medium);
+	font-weight: 600;
 }

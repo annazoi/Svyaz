@@ -97,7 +97,7 @@ const CreateGroup: FC<GroupProps> = ({ closeModal, setOpenGroupModal, openGroupM
 						<IonInput
 							labelPlacement="floating"
 							label="Group Name"
-							placeholder="Dream Team 🚀"
+							placeholder="Dream Team"
 							value={name}
 							onIonChange={(e: any) => setName(e.detail.value)}
 							className="group-input-container modern-input"

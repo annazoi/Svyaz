@@ -29,7 +29,7 @@ import {
 } from 'ionicons/icons';
 import { RiRobot2Line, RiMicLine, RiAddLine } from 'react-icons/ri';
 import { getChat, sendMessage, deleteChat, readMessage } from '../../../services/chat';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { useEffect, useState, useRef } from 'react';
 import { authStore } from '../../../store/auth';
@@ -86,9 +86,24 @@ const Chat: React.FC = () => {
 		ringtoneSrc: ringtonePlayer,
 	});
 
+	// const queryClient = useQueryClient();
+
 	const { mutate: readMessageMutate } = useMutation({
 		mutationFn: ({ chatId, messageId }: any) => readMessage(chatId, messageId),
+		onSuccess: () => {
+			// queryClient.invalidateQueries(['chats']);
+		},
 	});
+
+	const { mutate: deleteChatMutate } = useMutation({
+		mutationFn: (chatId: any) => deleteChat(chatId),
+		onSuccess: () => {
+			console.log('Chat has deleted!');
+		},
+	});
+
+	const startAudioCall = () => startCall('audio');
+	const startVideoCall = () => startCall('video');
 
 	const { mutate: mutateChat } = useMutation({
 		mutationFn: ({ chatId, page = 1 }: any) => getChat(chatId, page),
@@ -102,6 +117,14 @@ const Chat: React.FC = () => {
 				setMessages((prev) => [...(res?.chat?.messages || []), ...prev]);
 			}
 			setHasMore(Boolean(res.hasMore));
+
+			if (res?.chat?.messages?.length > 0) {
+				const lastMsg = res.chat.messages[res.chat.messages.length - 1];
+				if (lastMsg && lastMsg.senderId?._id !== userId && !lastMsg.read) {
+					readMessageMutate({ chatId, messageId: lastMsg._id });
+				}
+			}
+
 			setIsLoading(false);
 			setIsLoadingOlder(false);
 		},
@@ -155,15 +178,25 @@ const Chat: React.FC = () => {
 		if (photo.dataUrl) setImage(photo.dataUrl);
 	};
 
+	const handleDeletedChat = (chatId: any) => {
+		deleteChat(chatId);
+		router.push('/inbox', 'forward', 'replace');
+	};
+
 	useEffect(() => {
 		if (!socket || !chatId) return;
 		socket.emit('join_room', chatId);
-		const handleReceive = (msg: any) => setMessages((prev) => [...prev, msg]);
+		const handleReceive = (msg: any) => {
+			setMessages((prev) => [...prev, msg]);
+			if (msg.senderId._id !== userId) {
+				readMessageMutate({ chatId, messageId: msg._id });
+			}
+		};
 		socket.on('receive_message', handleReceive);
 		return () => {
 			socket.off('receive_message', handleReceive);
 		};
-	}, [socket, chatId]);
+	}, [socket, chatId, userId]);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -193,7 +226,7 @@ const Chat: React.FC = () => {
 					)}
 					<IonButtons slot="end">
 						<IonButton onClick={() => setOpenAiOptions(true)}>
-							<RiRobot2Line size={22} style={{ color: 'white', opacity: 0.9 }} />
+							<RiRobot2Line size={22} style={{ color: 'var(--ion-color-reverse)', opacity: 0.9 }} />
 						</IonButton>
 					</IonButtons>
 				</IonToolbar>
@@ -226,7 +259,7 @@ const Chat: React.FC = () => {
 					</div>
 				)}
 				<div className="chat-input-container">
-					<IonButton className="input-action-btn" fill="clear" onClick={handleGallery}>
+					<IonButton className="input-action-btn" fill="clear" onClick={handleGallery} color="primary">
 						<RiAddLine size={24} />
 					</IonButton>
 					<input
@@ -237,8 +270,8 @@ const Chat: React.FC = () => {
 						onKeyDown={(e) => e.key === 'Enter' && handleNewMessage()}
 					/>
 					{newMessage.trim() === '' && !image ? (
-						<IonButton className="input-action-btn" fill="clear" onClick={handleCamera}>
-							<RiMicLine size={24} />
+						<IonButton className="input-action-btn" fill="clear" onClick={handleCamera} color="primary">
+							<IonIcon icon={cameraOutline} />
 						</IonButton>
 					) : (
 						<IonButton className="send-btn" disabled={messageIsLoading} onClick={handleNewMessage}>
@@ -254,19 +287,22 @@ const Chat: React.FC = () => {
 					<IonIcon icon={ellipsisHorizontal} />
 				</IonFabButton>
 				<IonFabList side="top">
-					<IonFabButton onClick={() => setOpenOptions(true)} color="primary">
-						<IonIcon icon={informationCircleOutline} />
+					<IonFabButton
+						onClick={() => (chat?.type === 'group' ? setOpenOptions(true) : handleDeletedChat(chatId))}
+						color="primary"
+					>
+						<IonIcon icon={chat?.type === 'group' ? informationCircleOutline : trashBinOutline} />
 					</IonFabButton>
 					{chat?.type === 'group' && (
 						<IonFabButton onClick={() => setOpenOptions(true)} color="primary">
 							<IonIcon icon={peopleOutline} />
 						</IonFabButton>
 					)}
-					<IonFabButton onClick={() => startVideoCall()} className="call-fab">
-						<IonIcon icon={videocam} />
+					<IonFabButton onClick={() => startVideoCall()} className="call-fab" color="primary">
+						<IonIcon icon={videocam} style={{ color: 'white' }} />
 					</IonFabButton>
-					<IonFabButton onClick={() => startAudioCall()} className="call-fab">
-						<IonIcon icon={call} />
+					<IonFabButton onClick={() => startAudioCall()} className="call-fab" color="primary">
+						<IonIcon icon={call} style={{ color: 'white' }} />
 					</IonFabButton>
 				</IonFabList>
 			</IonFab>
@@ -322,6 +358,7 @@ const Chat: React.FC = () => {
 			<Modal isOpen={openAiOptions} onClose={setOpenAiOptions} title="AI Tools">
 				<AiTools chatId={chatId} />
 			</Modal>
+
 			<Modal isOpen={openOptions} onClose={setOpenOptions} title="Chat Details">
 				<ChatOptions chat={chat} isLoading={isLoading} closeModal={() => setOpenOptions(false)} />
 			</Modal>

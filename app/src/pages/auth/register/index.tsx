@@ -1,4 +1,5 @@
 import { IonButton, IonContent, IonPage, IonProgressBar, IonText, useIonRouter } from '@ionic/react';
+import '../login/style.css';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { registerSchema } from '../../../validations-schemas/auth';
@@ -12,7 +13,7 @@ import Toast from '../../../components/ui/Toast';
 import Logo from '../../../assets/logo.png';
 import HidePassword from '../../../components/HidePassword';
 import Input from '../../../components/ui/Input';
-// import '../login/style.css';
+import { PiChatTeardropDotsFill } from 'react-icons/pi';
 
 const Register: React.FC = () => {
 	const { logIn } = authStore((store: any) => store);
@@ -71,7 +72,7 @@ const Register: React.FC = () => {
 			<IonContent className="ion-padding modern-container bg-modern">
 				<div className="animate-in" style={{ marginTop: '2vh' }}>
 					<div className="auth-logo-container">
-						<img src={Logo} alt="logo" className="auth-logo" />
+						<PiChatTeardropDotsFill size={100} color="var(--ion-color-primary)" />
 					</div>
 
 					<div className="auth-header-text">
@@ -108,11 +109,9 @@ const Register: React.FC = () => {
 							<HidePassword register={register} />
 							{errors.password && <div className="field-error">{errors.password.message}</div>}
 
-							<div style={{ margin: '20px 0' }}>
-								<IonText style={{ display: 'block', marginBottom: '8px', fontSize: '13px', fontWeight: '500' }}>
-									Choose an Avatar
-								</IonText>
-								<ImagePicker onChange={handleImage}></ImagePicker>
+							<div className="auth-avatar-section">
+								<IonText className="auth-avatar-label">Choose a Hero Avatar</IonText>
+								<ImagePicker onChange={handleImage} />
 							</div>
 
 							<IonButton

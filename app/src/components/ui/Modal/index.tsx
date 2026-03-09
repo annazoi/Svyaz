@@ -1,38 +1,56 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
-import './style.css';
-import Title from '../Title';
-import Button from '../Button';
+import { IonButtons, IonContent, IonHeader, IonModal, IonToolbar, IonButton, IonIcon } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
+import React from 'react';
+import Title from '../Title';
+import './style.css';
 
 interface ModalProps {
-	isOpen: any;
+	isOpen: boolean;
 	title?: string;
-	onClose: any;
-	children?: any;
-	closeModal?: any;
-	image?: string;
+	onClose: (isOpen: boolean) => void;
+	children?: React.ReactNode;
+	closeModal?: () => void; // Keeping for compatibility with some files
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, closeModal }) => {
-	return (
-		<IonModal isOpen={isOpen} onDidDismiss={closeModal}>
-			<IonHeader>
-				<IonToolbar>
-					{title && <Title title={title} className="ion-padding"></Title>}
+	const handleClose = () => {
+		onClose(false);
+		if (closeModal) closeModal();
+	};
 
+	return (
+		<IonModal
+			isOpen={isOpen}
+			onDidDismiss={handleClose}
+			initialBreakpoint={0.85}
+			breakpoints={[0, 0.85, 1]}
+			handle={true}
+			className="modern-modal"
+			backdropBreakpoint={0.5}
+		>
+			<IonHeader className="ion-no-border">
+				<IonToolbar className="modal-header-toolbar">
+					{title && (
+						<Title
+							title={title}
+							className="modal-title"
+							style={{ color: 'var(--ion-text-color)', letterSpacing: '-0.5px' }}
+						/>
+					)}
 					<IonButtons slot="end">
-						<Button
-							name="Close"
-							iconSlot="end"
-							icon={closeOutline}
-							onClick={() => {
-								onClose(false);
-							}}
-						></Button>
+						<IonButton onClick={handleClose} className="modal-close-btn">
+							<IonIcon
+								icon={closeOutline}
+								slot="icon-only"
+								style={{
+									color: 'var(--ion-color-reverse)',
+								}}
+							/>
+						</IonButton>
 					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
-			<IonContent>{children}</IonContent>
+			{children}
 		</IonModal>
 	);
 };

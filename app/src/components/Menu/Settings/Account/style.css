@@ -1,1 +1,35 @@
+.account-container {
+	--background: var(--ion-background-color);
+}
 
+.account-form-card {
+	background: var(--ion-item-background);
+	border-radius: 20px;
+	padding: 8px;
+	margin: 16px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--ion-border-color);
+}
+
+.account-avatar-picker-title {
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ion-color-placeholder);
+	margin-bottom: 12px;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.account-submit-btn {
+	--border-radius: 14px;
+	--padding-top: 16px;
+	--padding-bottom: 16px;
+	margin-top: 32px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.account-input {
+	margin-top: 16px;
+}

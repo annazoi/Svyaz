@@ -4,6 +4,7 @@ import { authStore } from '../../../../store/auth';
 import { deleteMessage } from '../../../../services/chat';
 import { useMutation } from '@tanstack/react-query';
 import { useLongPress } from 'react-use';
+import { motion, AnimatePresence } from 'framer-motion';
 import './style.css';
 import Modal from '../../../../components/ui/Modal';
 import userDefaultAvatar from '../../../../assets/user.png';
@@ -44,7 +45,12 @@ const MessageBox: React.FC<MessageConfig> = ({ message, chatId }) => {
 	};
 
 	return (
-		<div className={`message-bubble-row ${isMine ? 'mine' : 'theirs'}`}>
+		<motion.div
+			initial={{ opacity: 0, y: 10, scale: 0.95 }}
+			animate={{ opacity: 1, y: 0, scale: 1 }}
+			transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+			className={`message-bubble-row ${isMine ? 'mine' : 'theirs'}`}
+		>
 			{!isMine && (
 				<img src={message.senderId.avatar || userDefaultAvatar} className="message-avatar-small" alt="Avatar" />
 			)}
@@ -56,28 +62,37 @@ const MessageBox: React.FC<MessageConfig> = ({ message, chatId }) => {
 			>
 				{message.message && <p className="message-text">{message.message}</p>}
 
-				{message.image && <img src={message.image} alt="Sent" className="message-image" />}
+				{message.image && (
+					<motion.img whileHover={{ scale: 1.02 }} src={message.image} alt="Sent" className="message-image" />
+				)}
 
 				<div className="message-time">{formatTime(message.createdAt)}</div>
 			</div>
 
-			<Modal isOpen={openImage} onClose={() => setOpenImage(false)}>
-				<div
-					style={{
-						padding: '20px',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						height: '100%',
-					}}
-				>
-					<img
-						src={message.image}
-						alt="Full size"
-						style={{ maxWidth: '100%', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
-					/>
-				</div>
-			</Modal>
+			<AnimatePresence>
+				{openImage && (
+					<Modal isOpen={openImage} onClose={() => setOpenImage(false)}>
+						<motion.div
+							initial={{ opacity: 0, scale: 0.9 }}
+							animate={{ opacity: 1, scale: 1 }}
+							exit={{ opacity: 0, scale: 0.9 }}
+							style={{
+								padding: '20px',
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								height: '100%',
+							}}
+						>
+							<img
+								src={message.image}
+								alt="Full size"
+								style={{ maxWidth: '100%', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
+							/>
+						</motion.div>
+					</Modal>
+				)}
+			</AnimatePresence>
 
 			<IonAlert
 				isOpen={openOptions}
@@ -93,7 +108,7 @@ const MessageBox: React.FC<MessageConfig> = ({ message, chatId }) => {
 				]}
 				onDidDismiss={() => setOpenOptions(false)}
 			/>
-		</div>
+		</motion.div>
 	);
 };
 

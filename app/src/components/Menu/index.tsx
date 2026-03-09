@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonMenu, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonIcon, IonMenu, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
 import React, { useState } from 'react';
 import './style.css';
 import Settings from './Settings';
@@ -19,36 +19,29 @@ const Menu: React.FC = () => {
 	};
 	return (
 		<>
-			<IonMenu contentId="main-content">
-				<IonHeader>
-					<IonToolbar color="secondary">
-						<Title title="menu" className="ion-padding" color="light"></Title>
+			<IonMenu contentId="main-content" type="overlay">
+				<IonHeader className="ion-no-border">
+					<IonToolbar className="menu-header-toolbar">
+						<Title title="Aura" className="menu-title"></Title>
 					</IonToolbar>
 				</IonHeader>
-				<IonContent>
-					<div
-						style={{
-							padding: '10px',
-							display: 'flex',
-							flexDirection: 'column',
-						}}
+				<IonContent className="menu-content">
+					<div className="menu-section-label">General</div>
+					<IonButton expand="block" fill="solid" className="menu-item-btn" onClick={() => setOpenSettings(true)}>
+						<IonIcon icon={settings} slot="start" />
+						Settings
+					</IonButton>
+
+					<IonButton
+						expand="block"
+						fill="solid"
+						className="menu-item-btn btn-logout"
+						onClick={handleLogout}
+						routerLink="/login"
 					>
-						<Button
-							name="Settings"
-							onClick={() => {
-								setOpenSettings(true);
-							}}
-							icon={settings}
-							iconSlot="start"
-						/>
-						<Button
-							name="Logout"
-							onClick={handleLogout}
-							icon={logOut}
-							routerLink={logOutUser && '/login'}
-							iconSlot="start"
-						></Button>
-					</div>
+						<IonIcon icon={logOut} slot="start" />
+						Log Out
+					</IonButton>
 				</IonContent>
 			</IonMenu>
 			<Modal
