@@ -94,6 +94,7 @@ body.dark .chat-item-content:hover {
 
 .chat-avatar {
 	max-width: 40px !important;
+	height: 40px !important;
 }
 
 .online-indicator {
