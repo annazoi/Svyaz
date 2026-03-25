@@ -2,6 +2,8 @@ import { IonButton, IonIcon, IonInput } from '@ionic/react';
 import './style.css';
 import { useState } from 'react';
 import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
+import Input from '../ui/Input';
+import Button from '../ui/Button';
 
 const HidePassword = ({ register }: any) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -16,12 +18,12 @@ const HidePassword = ({ register }: any) => {
 			<IonInput
 				labelPlacement="floating"
 				label="Password"
-				className="ion-margin-top input-container"
+				className="input-container"
 				type={showPassword ? 'text' : 'password'}
 				value={password}
-				onIonChange={(e) => setPassword(e.detail.value!)}
+				onIonChange={(e: any) => setPassword(e.detail.value!)}
 				{...register('password', { required: true })}
-			/>
+			></IonInput>
 
 			<IonButton
 				slot="end"

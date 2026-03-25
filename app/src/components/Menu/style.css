@@ -51,20 +51,23 @@ ion-menu::part(backdrop) {
 	--box-shadow: var(--fantasy-shadow);
 	margin-bottom: 16px;
 	font-weight: 700;
-	height: 60px;
+	height: 50px;
 	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	border: 1px solid transparent;
 }
 
 .menu-item-btn:hover {
-	transform: translateX(10px) scale(1.02);
-	border-color: var(--oil-green-200);
+	transform: translateX(5px) scale(1.02);
+	/* border-color: var(--oil-green-200); */
+	border-radius: 20px;
+
+	/* --border-radius: 20px; */
 }
 
 .btn-logout {
 	--color: var(--ion-color-danger);
 	--background: rgba(239, 68, 68, 0.05);
-	margin-top: 60px;
+	margin-top: 20px;
 }
 
 .btn-logout:hover {

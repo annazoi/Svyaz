@@ -3,7 +3,7 @@
 	--padding-start: 16px !important;
 	--padding-end: 16px !important;
 	--background: var(--ion-item-background) !important;
-	padding: 0;
+	height: 46px !important;
 }
 
 .search-results-list {
@@ -21,6 +21,10 @@
 	--min-height: 80px;
 	--background: transparent;
 	transition: all 0.2s ease;
+}
+
+.searchbar-input-container.sc-ion-searchbar-ios {
+	height: 46px !important;
 }
 
 .search-item:hover {
