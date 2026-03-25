@@ -16,6 +16,7 @@ interface InputProps {
 	error?: any;
 	onIonChange?: any;
 	type?: any;
+	style?: any;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -31,10 +32,16 @@ const Input: React.FC<InputProps> = ({
 	error,
 	onIonChange,
 	type,
+	style,
 	...rest
 }) => {
 	return (
-		<motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
+		<motion.div
+			initial={{ opacity: 0, x: -10 }}
+			animate={{ opacity: 1, x: 0 }}
+			transition={{ duration: 0.4 }}
+			style={{ width: '100%' }}
+		>
 			<IonInput
 				{...register}
 				{...props}
@@ -44,6 +51,11 @@ const Input: React.FC<InputProps> = ({
 				label={label}
 				className={`input-container ${className}`}
 				onIonChange={onIonChange}
+				style={{
+					'--highlight-height': '0px',
+					'--border-color': 'transparent',
+					...style,
+				}}
 			></IonInput>
 		</motion.div>
 	);

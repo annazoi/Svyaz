@@ -41,10 +41,10 @@ body.dark .image-container {
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
-	border: 3px solid var(--oil-green-400);
+	/* border: 3px solid var(--oil-green-400); */
 	background-color: white;
 	object-fit: cover;
-	box-shadow: var(--fantasy-glow);
+	/* box-shadow: var(--fantasy-glow); */
 	cursor: pointer;
 	transition: transform 0.3s ease;
 }

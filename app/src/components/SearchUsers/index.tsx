@@ -5,6 +5,7 @@ import { getUsers } from '../../services/users';
 import { authStore } from '../../store/auth';
 import userDefaultAvatar from '../../assets/user.png';
 import './style.css';
+import { px } from 'framer-motion';
 
 interface SearchUsersProps {
 	onUsersFiltered?: (users: any[]) => void;

@@ -1,15 +1,25 @@
 .show-hide-password {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .show-hide-password-button {
-	margin-left: 6px;
-	margin-top: 16px;
-	margin-bottom: 1px;
+	margin-left: 0.5rem;
+	border-radius: 20px;
+	min-height: 3rem;
 }
 
 .show-hide-password-button::part(native) {
 	--ion-color-contrast: white;
+}
+
+.show-hide-password label {
+	margin-left: 1rem !important;
+}
+
+.show-hide-password-button::part(native) {
+	border-radius: 20px;
 }
 
 @media screen and (max-width: 177px) {

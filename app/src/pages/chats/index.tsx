@@ -31,7 +31,7 @@ const Chats: React.FC = () => {
 	useNotifications();
 	const { socket } = useSocket();
 	const router = useIonRouter();
-	const { avatar, userId, username } = authStore((store: any) => store);
+	const { avatar, userId } = authStore((store: any) => store);
 	const [openCreateChat, setOpenCreateChat] = useState<boolean>(false);
 
 	const getInitialTheme = () => {
