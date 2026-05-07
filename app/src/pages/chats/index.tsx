@@ -62,7 +62,7 @@ const Chats: React.FC = () => {
 
 	const handleLastMessage = (chat: any) => {
 		const lastMessage = chat?.messages[chat.messages.length - 1];
-		if (!lastMessage) return 'Say hello! 👋';
+		if (!lastMessage) return 'No messages yet';
 		const prefix =
 			lastMessage.senderId._id === userId
 				? 'You: '
@@ -98,7 +98,7 @@ const Chats: React.FC = () => {
 							<img src={avatar || userDefaulfAvatar} alt="Profile" className="profile-trigger" />
 						</IonMenuToggle>
 					</IonButtons>
-					<IonText className="inbox-title">Inbox</IonText>
+					<IonText className="inbox-title">Messages</IonText>
 					<IonButtons slot="end">
 						<IonButton onClick={toggleTheme} className="ion-margin-end">
 							<IonIcon icon={isDark ? sunny : moon} />
@@ -116,17 +116,15 @@ const Chats: React.FC = () => {
 				<div className="animate-in">
 					{getUnreadCount() > 0 && (
 						<div className="unread-badge-container">
-							<div className="unread-badge">
-								{getUnreadCount()} Unread {getUnreadCount() === 1 ? 'Message' : 'Messages'}
-							</div>
+							<div className="unread-badge">{getUnreadCount()} unread</div>
 						</div>
 					)}
 
 					{data?.length === 0 ? (
 						<div className="empty-state">
 							<IonText>
-								<h3>No conversations yet</h3>
-								<p color="medium">Start chatting with your friends</p>
+								<h3>Your conversations</h3>
+								<p className="empty-state-lede">Open the compose control to start a private or group thread.</p>
 							</IonText>
 						</div>
 					) : (
@@ -181,7 +179,7 @@ const Chats: React.FC = () => {
 			<Modal
 				isOpen={openCreateChat}
 				onClose={setOpenCreateChat}
-				title="Create New Chat"
+				title="New conversation"
 				closeModal={() => setOpenCreateChat(false)}
 			>
 				<CreateChat closeModal={() => setOpenCreateChat(false)} refetch={refetch} />

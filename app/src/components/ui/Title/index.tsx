@@ -10,11 +10,7 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ title, className, color, style }) => {
 	return (
-		<IonTitle
-			className={className ? className : 'ion-no-padding'}
-			style={{ fontWeight: 'bold', letterSpacing: '2px', ...style }}
-			color={color || 'white'}
-		>
+		<IonTitle className={className ? className : 'ion-no-padding'} style={{ ...style }} color={color}>
 			{title}
 		</IonTitle>
 	);

@@ -1,40 +1,67 @@
-ion-modal.modern-modal {
-	--border-radius: 32px 32px 0 0;
-	--height: 90%;
-	--backdrop-opacity: 0.5;
+/* Mobile sheet: Ionic breakpoints compute height — avoid --width/--height here */
+ion-modal.modern-modal.modern-modal-sheet {
+	--backdrop-opacity: 0.35;
+	--border-radius: 14px 14px 0 0;
+}
+ion-modal.modern-modal-sheet::part(handle) {
+	opacity: 0.35;
+	width: 36px;
+}
+ion-modal.modern-modal-sheet::part(content) {
+	border-radius: 14px 14px 0 0;
+	box-shadow: 0 -6px 32px rgba(0, 0, 0, 0.1);
 }
 
-ion-modal::part(content) {
-	border-radius: 32px 32px 0 0;
-	box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+/* Desktop: centered card — no breakpoints, size below */
+ion-modal.modern-modal.modern-modal-desktop {
+	--backdrop-opacity: 0.55;
+	--width: min(420px, 92vw);
+	--height: min(528px, 86vh);
+	--border-radius: 14px;
+	--box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 768px) {
-	ion-modal {
-		--border-radius: 32px;
-		--width: 450px;
-		--height: 70%;
-	}
-	ion-modal::part(content) {
-		border-radius: 32px;
-	}
+ion-modal.modern-modal-desktop::part(content) {
+	border-radius: 14px;
+}
+
+ion-modal.modern-modal-desktop::part(backdrop) {
+	background: #000;
 }
 
 .modal-header-toolbar {
-	--padding-top: 12px;
-	--padding-bottom: 12px;
-	--background: var(--ion-background-color);
+	--padding-start: 8px;
+	--padding-end: 8px;
+	--padding-top: 6px;
+	--padding-bottom: 10px;
+	--min-height: 52px;
+	--background: var(--ion-item-background);
 	border-bottom: 1px solid var(--ion-border-color);
 }
 
 .modal-title {
-	font-weight: 800 !important;
-	letter-spacing: -0.5px !important;
-	font-size: 20px !important;
+	font-family: var(--font-sans);
+	font-size: 1.0625rem !important;
+	font-weight: 600 !important;
 	color: var(--ion-text-color) !important;
 }
 
 .modal-close-btn {
-	--color: var(--ion-color-medium);
+	--color: var(--ion-color-placeholder);
+}
+
+.modal-confirm-btn {
 	font-weight: 600;
+	text-transform: none;
+}
+
+.modern-modal-content {
+	--background: var(--ion-background-color);
+	--padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+ion-content.modern-modal-content::part(scroll) {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
 }

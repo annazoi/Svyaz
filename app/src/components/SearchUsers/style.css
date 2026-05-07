@@ -1,30 +1,31 @@
 .search-bar-modern {
-	--border-radius: 18px !important;
-	--padding-start: 16px !important;
-	--padding-end: 16px !important;
+	--border-radius: 10px !important;
+	--box-shadow: none !important;
 	--background: var(--ion-item-background) !important;
-	height: 46px !important;
+	--icon-color: var(--ion-color-placeholder) !important;
+	--placeholder-color: var(--ion-color-placeholder) !important;
+	--placeholder-opacity: 1 !important;
+	border: 1px solid var(--ion-border-color) !important;
+	padding: 0 !important;
+	min-height: 44px !important;
+	height: 44px !important;
+	font-size: 0.9375rem !important;
 }
 
 .search-results-list {
 	background: var(--ion-item-background);
-	border-radius: 28px;
-	margin: 20px;
+	border-radius: 10px;
+	margin: 14px 0 0;
 	overflow: hidden;
 	border: 1px solid var(--ion-border-color);
-	box-shadow: var(--fantasy-shadow);
 }
 
 .search-item {
-	--padding-start: 20px;
-	--inner-padding-end: 20px;
-	--min-height: 80px;
+	--padding-start: 14px;
+	--inner-padding-end: 14px;
+	--min-height: 64px;
 	--background: transparent;
-	transition: all 0.2s ease;
-}
-
-.searchbar-input-container.sc-ion-searchbar-ios {
-	height: 46px !important;
+	transition: background-color 0.15s ease;
 }
 
 .search-item:hover {
@@ -32,23 +33,21 @@
 }
 
 body.dark .search-item:hover {
-	--background: var(--ion-color-step-50);
+	--background: rgba(236, 234, 230, 0.04);
 }
 
 .search-avatar {
-	width: 50px;
-	height: 50px;
-	border-radius: 18px;
-	margin-right: 18px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
 	object-fit: cover;
-	border: 2px solid var(--ion-color-primary);
-	padding: 3px;
-	background: white;
-	box-shadow: var(--fantasy-glow);
+	margin-right: 12px;
+	border: 1px solid var(--ion-border-color);
+	box-shadow: none;
 }
 
 .search-checkbox {
-	--size: 26px;
+	--size: 22px;
 	--checkbox-background-checked: var(--ion-color-primary);
-	--border-radius: 10px;
+	--border-radius: 6px;
 }

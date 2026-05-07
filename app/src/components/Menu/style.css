@@ -1,150 +1,152 @@
 ion-menu::part(container) {
-	border-radius: 0 40px 40px 0;
-	box-shadow: 25px 0 80px rgba(0, 0, 0, 0.2);
+	border-radius: 0 12px 12px 0;
+	box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
 	--background: var(--ion-background-color);
 	border-right: 1px solid var(--ion-border-color);
 }
 
+body.dark ion-menu::part(container) {
+	box-shadow: 4px 0 32px rgba(0, 0, 0, 0.35);
+}
+
 ion-menu::part(backdrop) {
-	--backdrop-opacity: 0.6;
-	backdrop-filter: blur(12px);
+	--backdrop-opacity: 0.25;
 }
 
 .menu-header-toolbar {
-	--padding-top: 32px;
-	--padding-bottom: 20px;
+	--padding-top: 22px;
+	--padding-bottom: 8px;
 	--background: transparent;
 }
 
 .menu-title {
-	font-size: 32px;
-	font-weight: 900;
-	letter-spacing: -1.5px;
-	background: linear-gradient(135deg, var(--oil-green-400) 0%, var(--oil-green-600) 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
+	font-family: var(--font-display);
+	font-size: 1.75rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	color: var(--ion-text-color);
 	text-align: center;
+	margin: 0;
 }
 
 .menu-content {
-	--padding-top: 24px;
-	--padding-start: 20px;
-	--padding-end: 20px;
+	--padding-top: 0;
+	--padding-start: 0;
+	--padding-end: 0;
+	--padding-bottom: 24px;
 	--background: transparent;
 }
 
-.menu-section-label {
-	font-size: 11px;
-	font-weight: 800;
+.menu-nav {
+	padding: 0 20px;
+}
+
+.menu-kicker {
+	margin: 0 0 8px;
+	font-size: 0.65rem;
+	font-weight: 600;
 	text-transform: uppercase;
-	letter-spacing: 2px;
-	color: var(--oil-green-400);
-	margin: 32px 12px 16px;
-	opacity: 0.8;
+	letter-spacing: 0.12em;
+	color: var(--ion-color-placeholder);
 }
 
-.menu-item-btn {
-	--background: var(--ion-item-background);
-	--color: var(--ion-text-color);
-	--border-radius: 20px;
-	--box-shadow: var(--fantasy-shadow);
-	margin-bottom: 16px;
-	font-weight: 700;
-	height: 50px;
-	transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	border: 1px solid transparent;
+.menu-link {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	padding: 12px 0;
+	margin: 0;
+	border: none;
+	border-top: 1px solid var(--ion-border-color);
+	background: transparent;
+	font-family: inherit;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	color: var(--ion-text-color);
+	text-align: left;
+	text-transform: none;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 
-.menu-item-btn:hover {
-	transform: translateX(5px) scale(1.02);
-	/* border-color: var(--oil-green-200); */
-	border-radius: 20px;
-
-	/* --border-radius: 20px; */
+.menu-link:first-of-type {
+	border-top: none;
 }
 
-.btn-logout {
-	--color: var(--ion-color-danger);
-	--background: rgba(239, 68, 68, 0.05);
-	margin-top: 20px;
+.menu-link ion-icon {
+	font-size: 1.25rem;
+	color: var(--ion-color-placeholder);
+	flex-shrink: 0;
 }
 
-.btn-logout:hover {
-	--background: rgba(239, 68, 68, 0.1);
+.menu-link:active {
+	opacity: 0.65;
 }
 
-/* Settings Fantasy Styling */
+.menu-link--quiet {
+	color: var(--ion-color-placeholder);
+	margin-top: 6px;
+}
+
+.menu-link--quiet ion-icon {
+	color: var(--ion-color-danger);
+	opacity: 0.45;
+}
+
+/* Settings (modal) */
+
 .settings-content {
 	--background: var(--ion-background-color);
 }
 
 .settings-profile-card {
 	background: var(--ion-item-background);
-	border-radius: 32px;
-	padding: 32px;
+	border-radius: 12px;
+	padding: 24px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 20px;
-	box-shadow: var(--fantasy-shadow);
+	margin: 12px;
 	border: 1px solid var(--ion-border-color);
-	position: relative;
-	overflow: hidden;
 }
 
 .settings-profile-card::before {
-	content: '';
-	position: absolute;
-	top: -50%;
-	left: -50%;
-	width: 200%;
-	height: 200%;
-	background: radial-gradient(circle at center, var(--oil-green-50) 0%, transparent 70%);
-	opacity: 0.5;
-	z-index: 0;
-}
-
-body.dark .settings-profile-card::before {
-	background: radial-gradient(circle at center, var(--oil-green-900) 0%, transparent 70%);
+	display: none;
 }
 
 .settings-avatar-large {
-	width: 110px;
-	height: 110px;
+	width: 88px;
+	height: 88px;
 	border-radius: 50%;
 	object-fit: cover;
-	border: 3px solid var(--ion-color-primary);
-	padding: 4px;
-	background: white;
-	margin-bottom: 20px;
-	box-shadow: var(--fantasy-glow);
-	z-index: 1;
+	border: 1px solid var(--ion-border-color);
+	margin-bottom: 12px;
+}
+
+body.dark .settings-avatar-large {
+	background: var(--ion-color-step-100);
 }
 
 .settings-username {
-	font-size: 24px;
-	font-weight: 800;
+	font-size: 1.125rem;
+	font-weight: 600;
 	color: var(--ion-text-color);
-	letter-spacing: -0.5px;
-	z-index: 1;
 }
 
 .settings-list-card {
 	background: var(--ion-item-background);
-	border-radius: 28px;
-	margin: 20px;
+	border-radius: 12px;
+	margin: 12px;
 	overflow: hidden;
 	border: 1px solid var(--ion-border-color);
-	box-shadow: var(--fantasy-shadow);
 }
 
 .settings-item {
-	--padding-start: 20px;
-	--inner-padding-end: 20px;
-	--min-height: 72px;
+	--padding-start: 16px;
+	--inner-padding-end: 16px;
+	--min-height: 56px;
 	--background: transparent;
-	transition: background 0.2s ease;
 }
 
 .settings-item:hover {
@@ -152,20 +154,20 @@ body.dark .settings-profile-card::before {
 }
 
 body.dark .settings-item:hover {
-	--background: var(--ion-color-step-50);
+	--background: rgba(236, 234, 230, 0.04);
 }
 
 .settings-icon-box {
-	width: 44px;
-	height: 44px;
+	width: 36px;
+	height: 36px;
 	background: var(--oil-green-50);
-	border-radius: 14px;
+	border-radius: 8px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-right: 18px;
+	margin-right: 12px;
 	color: var(--ion-color-primary);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--ion-border-color);
 }
 
 body.dark .settings-icon-box {
@@ -173,5 +175,6 @@ body.dark .settings-icon-box {
 }
 
 .settings-toggle-item {
-	font-weight: 700;
+	font-weight: 500;
+	font-size: 0.9375rem;
 }

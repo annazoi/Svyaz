@@ -1,6 +1,6 @@
 .message-bubble-row {
 	display: flex;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
 	width: 100%;
 }
 
@@ -15,69 +15,87 @@
 .message-avatar-small {
 	width: 32px;
 	height: 32px;
-	border-radius: 12px;
-	margin-right: 12px;
+	border-radius: 50%;
+	margin-right: 10px;
 	align-self: flex-end;
 	object-fit: cover;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	border: 1.5px solid var(--ion-border-color);
+	box-shadow: none;
+	border: 1px solid var(--ion-border-color);
 }
 
 .message-text {
 	margin: 0;
+	font-weight: 450;
 }
+
 .message-bubble {
-	max-width: 80%;
-	padding: 8px 16px;
-	border-radius: 22px;
+	max-width: min(82%, 22rem);
+	padding: 10px 14px 8px;
+	border-radius: 16px;
 	position: relative;
-	font-size: 15.5px;
+	font-size: 0.9375rem;
 	line-height: 1.5;
-	transition: transform 0.2s ease;
+	transition: background-color 0.15s ease;
 }
 
 .message-bubble:active {
-	transform: scale(0.98);
+	transform: none;
 }
 
 .message-bubble.mine {
-	background: linear-gradient(135deg, var(--oil-green-400) 0%, var(--oil-green-500) 100%);
-	color: white;
-	border-bottom-right-radius: 4px;
-	box-shadow: 0 4px 15px rgba(104, 129, 116, 0.2);
+	background: var(--oil-green-700);
+	color: var(--ion-color-primary-contrast);
+	border-bottom-right-radius: 6px;
+	box-shadow: none;
+	border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.dark .message-bubble.mine {
+	background: rgba(236, 234, 230, 0.12);
+	color: var(--ion-text-color);
+	border: 1px solid rgba(236, 234, 230, 0.08);
 }
 
 .message-bubble.theirs {
 	background: var(--ion-item-background);
 	color: var(--ion-text-color);
-	border-bottom-left-radius: 4px;
+	border-bottom-left-radius: 6px;
 	border: 1px solid var(--ion-border-color);
+	box-shadow: 0 1px 2px rgba(20, 17, 13, 0.04);
 }
 
 body.dark .message-bubble.theirs {
-	background: var(--ion-color-step-100);
+	background: var(--ion-color-step-50);
+	box-shadow: none;
 }
 
 .message-image {
 	width: 100%;
 	max-width: 260px;
-	border-radius: 16px;
-	margin-top: 6px;
+	border-radius: 12px;
+	margin-top: 8px;
 	display: block;
 	cursor: pointer;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: none;
 }
 
 .message-time {
-	font-size: 10px;
+	font-size: 0.625rem;
 	margin-top: 6px;
-	opacity: 0.6;
+	opacity: 0.55;
 	font-weight: 500;
+	letter-spacing: 0.02em;
+	font-variant-numeric: tabular-nums;
+	text-transform: uppercase;
 }
 
 .message-bubble.mine .message-time {
-	color: rgba(255, 255, 255, 0.7);
+	color: rgba(250, 249, 247, 0.58);
 	text-align: right;
+}
+
+body.dark .message-bubble.mine .message-time {
+	color: rgba(236, 234, 230, 0.45);
 }
 
 .message-bubble.theirs .message-time {
@@ -89,8 +107,8 @@ body.dark .message-bubble.theirs {
 	background: var(--ion-color-step-50);
 	color: var(--ion-color-placeholder);
 	font-style: italic;
-	font-size: 13px;
-	padding: 10px 16px;
-	border-radius: 16px;
+	font-size: 0.8125rem;
+	padding: 10px 14px;
+	border-radius: 12px;
 	border: 1px dashed var(--ion-border-color);
 }

@@ -1,16 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import {
-	IonCard,
-	IonContent,
-	IonAvatar,
-	IonItem,
-	IonLabel,
-	IonImg,
-	IonButton,
-	useIonRouter,
-	IonIcon,
-	IonText,
-} from '@ionic/react';
+import { IonAvatar, IonButton, IonIcon, IonImg, useIonRouter } from '@ionic/react';
 import { addOutline, chevronForwardOutline } from 'ionicons/icons';
 import React, { useState } from 'react';
 import { authStore } from '../../../store/auth';
@@ -29,6 +18,7 @@ const CreateChat: React.FC<UsersProps> = ({ closeModal, refetch }) => {
 	const { userId } = authStore((store: any) => store);
 	const [openGroupModal, setOpenGroupModal] = useState<boolean>(false);
 	const [filteredUsers, setFilteredUsers] = useState<any[]>([]);
+	const [searchQuery, setSearchQuery] = useState('');
 	const router = useIonRouter();
 
 	const { mutate } = useMutation({
@@ -50,63 +40,56 @@ const CreateChat: React.FC<UsersProps> = ({ closeModal, refetch }) => {
 
 	return (
 		<>
-			<IonContent className="bg-modern">
-				<div className="new-chat-container animate-in">
-					<IonButton
-						expand="block"
-						onClick={() => setOpenGroupModal(true)}
-						className="create-group-btn"
-						color="primary"
-					>
-						<IonIcon icon={addOutline} slot="start" />
-						Create New Group
-					</IonButton>
+			<div className="new-chat-sheet">
+				<IonButton
+					expand="block"
+					fill="outline"
+					onClick={() => setOpenGroupModal(true)}
+					className="new-chat-group-btn"
+					color="primary"
+				>
+					<IonIcon icon={addOutline} slot="start" />
+					New group
+				</IonButton>
 
-					<IonText
-						color="medium"
-						style={{
-							fontSize: '12px',
-							fontWeight: 'bold',
-							textTransform: 'uppercase',
-							letterSpacing: '1px',
-							marginBottom: '12px',
-							display: 'block',
-						}}
-					>
-						Search People
-					</IonText>
+				<p className="new-chat-label">Find someone</p>
 
-					<SearchUsers
-						type="private"
-						onUsersFiltered={(users) => setFilteredUsers(users)}
-						placeholder="Search by username..."
-					/>
+				<SearchUsers
+					type="private"
+					onUsersFiltered={(users) => setFilteredUsers(users)}
+					onQueryChange={setSearchQuery}
+					placeholder="Search by username"
+				/>
 
-					<div style={{ marginTop: '20px' }}>
-						{filteredUsers?.map((user: any) => (
-							<React.Fragment key={user._id}>
-								{userId !== user._id && (
-									<IonCard
-										className="user-search-result ion-no-margin"
-										onClick={() => createPrivateChat(user._id)}
-									>
-										<IonItem lines="none" className="user-item">
-											<IonAvatar slot="start">
-												<IonImg src={user.avatar || userDefaultAvatar} />
-											</IonAvatar>
-											<IonLabel>
-												<h2 style={{ fontWeight: '600' }}>{user.username}</h2>
-												<p style={{ fontSize: '12px' }}>Click to start chatting</p>
-											</IonLabel>
-											<IonIcon icon={chevronForwardOutline} slot="end" color="medium" />
-										</IonItem>
-									</IonCard>
-								)}
-							</React.Fragment>
-						))}
-					</div>
-				</div>
-			</IonContent>
+				<ul className="new-chat-results" aria-live="polite">
+					{filteredUsers?.map((user: any) =>
+						userId !== user._id ? (
+							<li key={user._id}>
+								<button
+									type="button"
+									className="new-chat-peer"
+									onClick={() => createPrivateChat(user._id)}
+								>
+									<IonAvatar className="new-chat-peer__avatar">
+										<IonImg src={user.avatar || userDefaultAvatar} alt="" />
+									</IonAvatar>
+									<span className="new-chat-peer__meta">
+										<span className="new-chat-peer__name">{user.username}</span>
+										<span className="new-chat-peer__hint">Direct message</span>
+									</span>
+									<IonIcon icon={chevronForwardOutline} className="new-chat-peer__chev" aria-hidden />
+								</button>
+							</li>
+						) : null,
+					)}
+				</ul>
+
+				{searchQuery.trim() === '' ? (
+					<p className="new-chat-hint">Type a username to search.</p>
+				) : (
+					filteredUsers?.length === 0 && <p className="new-chat-hint">No matching people.</p>
+				)}
+			</div>
 
 			<CreateGroup
 				closeModal={closeModal}

@@ -1,51 +1,57 @@
-import { IonButtons, IonContent, IonHeader, IonModal, IonToolbar, IonButton, IonIcon } from '@ionic/react';
+import { IonButtons, IonContent, IonHeader, IonModal, IonToolbar, IonButton, IonIcon, IonTitle } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
-import React from 'react';
-import Title from '../Title';
+import React, { useCallback, useRef } from 'react';
+import { useIsDesktop } from '../../../hooks/useIsDesktop';
 import './style.css';
+
+const SHEET_BREAKPOINT = 0.88;
 
 interface ModalProps {
 	isOpen: boolean;
 	title?: string;
 	onClose: (isOpen: boolean) => void;
 	children?: React.ReactNode;
-	closeModal?: () => void; // Keeping for compatibility with some files
+	closeModal?: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, closeModal }) => {
+	const desktop = useIsDesktop();
+	const modalRef = useRef<HTMLIonModalElement>(null);
+
 	const handleClose = () => {
 		onClose(false);
-		if (closeModal) closeModal();
+		closeModal?.();
 	};
+
+	const snapSheetOpen = useCallback(() => {
+		requestAnimationFrame(() => {
+			void modalRef.current?.setCurrentBreakpoint(SHEET_BREAKPOINT);
+		});
+	}, []);
+
+	const sheetProps = desktop
+		? {}
+		: {
+				initialBreakpoint: SHEET_BREAKPOINT,
+				breakpoints: [0, SHEET_BREAKPOINT, 1] as number[],
+				handle: true as const,
+			};
 
 	return (
 		<IonModal
+			ref={modalRef}
 			isOpen={isOpen}
 			onDidDismiss={handleClose}
-			initialBreakpoint={0.85}
-			breakpoints={[0, 0.85, 1]}
-			handle={true}
-			className="modern-modal"
-			backdropBreakpoint={0.5}
+			onDidPresent={desktop ? undefined : snapSheetOpen}
+			className={`modern-modal ${desktop ? 'modern-modal-desktop' : 'modern-modal-sheet'}`}
+			{...sheetProps}
 		>
 			<IonHeader className="ion-no-border">
 				<IonToolbar className="modal-header-toolbar">
-					{title && (
-						<Title
-							title={title}
-							className="modal-title"
-							style={{ color: 'var(--ion-text-color)', letterSpacing: '-0.5px' }}
-						/>
-					)}
+					{title && <IonTitle className="modal-title">{title}</IonTitle>}
 					<IonButtons slot="end">
-						<IonButton onClick={handleClose} className="modal-close-btn">
-							<IonIcon
-								icon={closeOutline}
-								slot="icon-only"
-								style={{
-									color: 'var(--ion-color-reverse)',
-								}}
-							/>
+						<IonButton onClick={handleClose} className="modal-close-btn" fill="clear" aria-label="Close">
+							<IonIcon icon={closeOutline} slot="icon-only" />
 						</IonButton>
 					</IonButtons>
 				</IonToolbar>

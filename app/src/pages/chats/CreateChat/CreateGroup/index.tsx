@@ -1,4 +1,4 @@
-import { IonAlert, IonCardContent, IonContent, IonInput, IonText, useIonRouter } from '@ionic/react';
+import { IonAlert, IonInput, useIonRouter } from '@ionic/react';
 import { useMutation } from '@tanstack/react-query';
 import { FC, useState } from 'react';
 import { createChat } from '../../../../services/chat';
@@ -70,69 +70,40 @@ const CreateGroup: FC<GroupProps> = ({ closeModal, setOpenGroupModal, openGroupM
 			isOpen={openGroupModal}
 			onClose={() => setOpenGroupModal(false)}
 			onClick={createGroupChat}
-			title="New Group Chat"
+			title="New group"
 		>
-			<IonContent className="bg-modern">
-				<IonCardContent className="animate-in">
-					<div className="group-avatar-picker">
-						<ImagePicker onChange={handleImage} value={avatar} text="Add Group Avatar"></ImagePicker>
-					</div>
+			<div className="new-chat-sheet group-modal-body">
+				<div className="group-avatar-picker">
+					<ImagePicker onChange={handleImage} value={avatar} text="Group photo" />
+				</div>
 
-					<Loading showLoading={isLoading} />
+				<Loading showLoading={isLoading} />
 
-					<div style={{ padding: '0 8px' }}>
-						<IonText
-							color="medium"
-							style={{
-								fontSize: '12px',
-								fontWeight: 'bold',
-								textTransform: 'uppercase',
-								letterSpacing: '1px',
-								marginBottom: '8px',
-								display: 'block',
-							}}
-						>
-							Group Details
-						</IonText>
-						<IonInput
-							labelPlacement="floating"
-							label="Group Name"
-							placeholder="Dream Team"
-							value={name}
-							onIonChange={(e: any) => setName(e.detail.value)}
-							className="group-input-container modern-input"
-						></IonInput>
+				<p className="modal-field-label">Details</p>
+				<IonInput
+					labelPlacement="floating"
+					label="Name"
+					placeholder="e.g. Project core"
+					value={name}
+					onIonChange={(e: any) => setName(e.detail.value)}
+					className="group-input-container modern-input"
+				/>
 
-						<IonText
-							color="medium"
-							style={{
-								fontSize: '12px',
-								fontWeight: 'bold',
-								textTransform: 'uppercase',
-								letterSpacing: '1px',
-								marginBottom: '8px',
-								display: 'block',
-								marginTop: '16px',
-							}}
-						>
-							Invite Members
-						</IonText>
-						<SearchUsers
-							type="group"
-							placeholder="Search Users..."
-							handleSelectUser={handleSelectUser}
-							selectedUsers={selectedUsers}
-						/>
-					</div>
-				</IonCardContent>
-			</IonContent>
+				<p className="modal-field-label spaced">Members</p>
+				<SearchUsers
+					type="group"
+					placeholder="Search people"
+					handleSelectUser={handleSelectUser}
+					selectedUsers={selectedUsers}
+				/>
+			</div>
 
 			<IonAlert
 				isOpen={openAlert}
 				message={errorMessage}
 				buttons={['Close']}
 				onDidDismiss={() => setOpenAlert(false)}
-			></IonAlert>
+			/>
 		</ConfirmModal>
 	);
 };

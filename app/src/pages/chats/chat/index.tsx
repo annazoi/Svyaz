@@ -29,7 +29,7 @@ import {
 } from 'ionicons/icons';
 import { RiRobot2Line, RiMicLine, RiAddLine } from 'react-icons/ri';
 import { getChat, sendMessage, deleteChat, readMessage } from '../../../services/chat';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { useEffect, useState, useRef } from 'react';
 import { authStore } from '../../../store/auth';
@@ -40,6 +40,7 @@ import userDefaulfAvatar from '../../../assets/user.png';
 import groupDefaulfAvatar from '../../../assets/group.png';
 import { useWebRTC } from '../../../hooks/webrtc';
 import Modal from '../../../components/ui/Modal';
+import SideOrModal from '../../../components/ui/SideOrModal';
 import ChatOptions from '../../../components/ChatOptions';
 import AiTools from './openAi';
 import './style.css';
@@ -209,7 +210,9 @@ const Chat: React.FC = () => {
 	const defaultAvatar = chat?.type === 'private' ? userDefaulfAvatar : groupDefaulfAvatar;
 
 	return (
-		<IonPage>
+		<IonPage className="chat-flex">
+			<div className="chat-flex-r">
+				<div className="chat-flex-c">
 			<IonHeader className="chat-header ion-no-border bg-modern">
 				<IonToolbar>
 					<IonButtons slot="start">
@@ -220,7 +223,7 @@ const Chat: React.FC = () => {
 							<img src={chatAvatar || defaultAvatar} alt="Avatar" className="chat-header-avatar" />
 							<div className="chat-header-info">
 								<IonText className="chat-header-name">{chatName}</IonText>
-								<IonText className="chat-header-status">online</IonText>
+								<IonText className="chat-header-status">Active</IonText>
 							</div>
 						</div>
 					)}
@@ -264,7 +267,7 @@ const Chat: React.FC = () => {
 					</IonButton>
 					<input
 						className="message-input"
-						placeholder="Start typing..."
+						placeholder="Write a message…"
 						value={newMessage}
 						onChange={(e) => setNewMessage(e.target.value)}
 						onKeyDown={(e) => e.key === 'Enter' && handleNewMessage()}
@@ -279,6 +282,12 @@ const Chat: React.FC = () => {
 						</IonButton>
 					)}
 				</div>
+			</div>
+
+				</div>
+				<SideOrModal isOpen={openAiOptions} onClose={setOpenAiOptions} title="AI Tools">
+					<AiTools chatId={chatId!} />
+				</SideOrModal>
 			</div>
 
 			{/* Floating Actions */}
@@ -354,10 +363,6 @@ const Chat: React.FC = () => {
 					</div>
 				</div>
 			)}
-
-			<Modal isOpen={openAiOptions} onClose={setOpenAiOptions} title="AI Tools">
-				<AiTools chatId={chatId} />
-			</Modal>
 
 			<Modal isOpen={openOptions} onClose={setOpenOptions} title="Chat Details">
 				<ChatOptions chat={chat} isLoading={isLoading} closeModal={() => setOpenOptions(false)} />

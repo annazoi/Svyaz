@@ -17,7 +17,7 @@ const multer = require('multer');
 const http = require('http').Server(app);
 const io = require('socket.io');
 const { Socket } = require('dgram');
-// const port = process.env.PORT || "8100";
+const port = Number(process.env.PORT) || 3000;
 
 // app.use(formidable());
 app.use(express.json({ limit: '50mb' }));
@@ -38,8 +38,8 @@ app.use('/chat', chatRoutes);
 app.use('/openai', openAiRoutes);
 
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
-	http.listen(3000, () => {
-		console.log(`Server listening at http://localhost:3000`);
+	http.listen(port, () => {
+		console.log(`Server listening at http://localhost:${port}`);
 	});
 });
 

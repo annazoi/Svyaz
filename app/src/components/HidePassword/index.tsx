@@ -18,7 +18,7 @@ const HidePassword = ({ register }: any) => {
 			<IonInput
 				labelPlacement="floating"
 				label="Password"
-				className="input-container"
+				className="input-container modern-input"
 				type={showPassword ? 'text' : 'password'}
 				value={password}
 				onIonChange={(e: any) => setPassword(e.detail.value!)}

@@ -1,7 +1,7 @@
-import { IonButton, IonContent, IonIcon, IonProgressBar, IonText } from '@ionic/react';
-import ai from '../../../../assets/ai.jpg';
+import { IonIcon, IonProgressBar } from '@ionic/react';
+import aiImg from '../../../../assets/ai.jpg';
 import './style.css';
-import { happyOutline, ellipsisHorizontalOutline, readerOutline, flashOutline } from 'ionicons/icons';
+import { ellipsisHorizontalOutline, flashOutline, happyOutline, readerOutline } from 'ionicons/icons';
 import { useMutation } from '@tanstack/react-query';
 import { getChatEmotions, getChatSummary } from '../../../../services/openAi';
 import { useState } from 'react';
@@ -36,102 +36,65 @@ const AiTools = ({ chatId }: AiToolsProps) => {
 		},
 	});
 
-	const getSummary = () => {
-		mutateSummary({ chatId });
-	};
-
-	const getEmotions = () => {
-		mutateEmotions({ chatId });
-	};
+	const loading = summaryIsLoading || emotionsIsLoading;
+	const eng = !!(loading || summaryText || emotionText);
 
 	return (
-		<>
-			<div className="ai-options-container">
-				<div className="ai-output-section">
-					{summaryIsLoading || emotionsIsLoading ? (
-						<div style={{ width: '100%', textAlign: 'center', padding: '40px 0' }}>
-							<IonIcon
-								icon={flashOutline}
-								style={{
-									fontSize: '48px',
-									color: 'var(--ion-color-primary)',
-									animation: 'pulse 1.5s infinite',
-								}}
-							/>
-							<IonText style={{ display: 'block', marginTop: '16px', fontWeight: '500', opacity: 0.7 }}>
-								AI is analyzing your messages...
-							</IonText>
-							<IonProgressBar
-								type="indeterminate"
-								mode="ios"
-								style={{ marginTop: '24px', borderRadius: '4px' }}
-							/>
+		<div className="ai">
+			<div className="ai-scroll">
+				{loading ? (
+					<div className="ai-load">
+						<IonIcon icon={flashOutline} className="ai-load-icon" aria-hidden />
+						<span className="ai-load-note">Analyzing messages…</span>
+						<IonProgressBar type="indeterminate" />
+					</div>
+				) : summaryText ? (
+					<div className="ai-card">
+						<div className="ai-card__hdr">
+							<span className="ai-card__k">Summary</span>
+							<IonIcon icon={readerOutline} aria-hidden />
 						</div>
-					) : summaryText ? (
-						<div className="ai-result-card animate-in">
-							<div className="ai-result-header">
-								<span className="ai-result-badge">Summary</span>
-								<IonIcon icon={readerOutline} style={{ fontSize: '18px', opacity: 0.6 }} />
-							</div>
-							<p className="ai-result-text">{summaryText}</p>
+						<p className="ai-card__p">{summaryText}</p>
+					</div>
+				) : emotionText ? (
+					<div className="ai-card">
+						<div className="ai-card__hdr">
+							<span className="ai-card__k">Tone</span>
+							{emotionText.overall_mood && <span className="ai-card__mood">{emotionText.overall_mood}</span>}
 						</div>
-					) : emotionText ? (
-						<div className="ai-result-card animate-in">
-							<div className="ai-result-header">
-								<span className="ai-result-badge">Emotion Analysis</span>
-								<div className="ai-result-title">{emotionText.overall_mood}</div>
-							</div>
-
-							{emotionText.explanation && (
-								<p className="ai-result-text" style={{ marginBottom: '16px' }}>
-									{emotionText.explanation}
-								</p>
-							)}
-
-							<div className="ai-tags-container">
-								{emotionText.emotions?.map((e: string) => (
-									<span key={e} className="ai-tag">
-										{e}
-									</span>
+						{emotionText.explanation && <p className="ai-card__p">{emotionText.explanation}</p>}
+						{emotionText.emotions?.length > 0 && (
+							<div className="ai-tags">
+								{emotionText.emotions.map((e: string) => (
+									<span key={e}>{e}</span>
 								))}
 							</div>
-						</div>
-					) : (
-						<img src={ai} className="ai-placeholder-image" alt="AI Placeholder" />
-					)}
-				</div>
-
-				<div className="ai-actions-grid">
-					<IonButton
-						onClick={getSummary}
-						className="ai-tool-btn summary-btn"
-						disabled={summaryIsLoading || emotionsIsLoading}
-						mode="ios"
-					>
-						<IonIcon icon={summaryIsLoading ? ellipsisHorizontalOutline : readerOutline} slot="start" />
-						Get Summary
-					</IonButton>
-
-					<IonButton
-						onClick={getEmotions}
-						className="ai-tool-btn emotion-btn"
-						disabled={summaryIsLoading || emotionsIsLoading}
-						mode="ios"
-					>
-						<IonIcon icon={emotionsIsLoading ? happyOutline : happyOutline} slot="start" />
-						Analyze Tone
-					</IonButton>
-				</div>
-
-				<style>{`
-				@keyframes pulse {
-					0% { transform: scale(1); opacity: 0.8; }
-					50% { transform: scale(1.1); opacity: 0.4; }
-					100% { transform: scale(1); opacity: 0.8; }
-				}
-			`}</style>
+						)}
+					</div>
+				) : (
+					<p className="ai-idle">Choose Summary or Tone to analyze this conversation.</p>
+				)}
+				{!eng && (
+					<figure className="ai-pic">
+						<img src={aiImg} alt="" width={640} height={360} decoding="async" />
+					</figure>
+				)}
+				<div className="ai-x" aria-hidden />
 			</div>
-		</>
+			<footer className="ai-ft">
+				{eng && <p className="ai-hint">Prefer another perspective? Use the complementary insight below whenever you like.</p>}
+				<div className="ai-row">
+					<button type="button" className="ai-act ai-solid" disabled={loading} onClick={() => mutateSummary({ chatId })}>
+						<IonIcon icon={summaryIsLoading ? ellipsisHorizontalOutline : readerOutline} />
+						Summary
+					</button>
+					<button type="button" className="ai-act" disabled={loading} onClick={() => mutateEmotions({ chatId })}>
+						<IonIcon icon={emotionsIsLoading ? ellipsisHorizontalOutline : happyOutline} />
+						Tone
+					</button>
+				</div>
+			</footer>
+		</div>
 	);
 };
 

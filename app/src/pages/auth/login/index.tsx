@@ -18,10 +18,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../../validations-schemas/auth';
 import HidePassword from '../../../components/HidePassword';
 import Toast from '../../../components/ui/Toast';
-import Logo from '../../../assets/logo.png';
 import './style.css';
 import Input from '../../../components/ui/Input';
-import { PiChatTeardropDotsFill } from 'react-icons/pi';
 
 const Login: React.FC = () => {
 	const router = useIonRouter();
@@ -70,18 +68,21 @@ const Login: React.FC = () => {
 	return (
 		<IonPage className="auth-page">
 			<IonContent className="ion-padding modern-container bg-modern">
-				<div className="animate-in" style={{ marginTop: '5vh' }}>
-					<div className="auth-logo-container">
-						<PiChatTeardropDotsFill size={100} color="var(--ion-color-primary)" />
-					</div>
+				<div className="animate-in" style={{ marginTop: 'clamp(2rem, 6vh, 4rem)' }}>
+					<div className="auth-header-mark">
+						<div className="auth-logo-container auth-logo-container--minimal">
+							<span className="auth-tagline">Private messaging</span>
+							<span className="auth-wordmark">Aura</span>
+						</div>
 
-					<div className="auth-header-text">
-						<IonText>
-							<h1>Welcome Back</h1>
-						</IonText>
-						<IonText color="medium">
-							<p>Sign in to continue chatting with friends</p>
-						</IonText>
+						<div className="auth-header-text">
+							<IonText>
+								<h1>Sign in</h1>
+							</IonText>
+							<IonText color="medium">
+								<p>Continue to your conversations. Access is tied to your account only.</p>
+							</IonText>
+						</div>
 					</div>
 
 					<IonCard className="auth-card glass-effect">
@@ -95,7 +96,7 @@ const Login: React.FC = () => {
 									label="Username"
 									register={register('username')}
 									className="modern-input"
-									placeholder="Enter your username"
+									placeholder="Your username"
 								/>
 								{errors.username && <div className="field-error">{errors.username.message}</div>}
 
@@ -109,12 +110,12 @@ const Login: React.FC = () => {
 									disabled={isLoading}
 									color="primary"
 								>
-									{isLoading ? 'Signing in...' : 'Sign In'}
+									{isLoading ? 'Signing in…' : 'Continue'}
 								</IonButton>
 							</form>
 
 							<IonButton routerLink="/register" expand="block" fill="clear" className="auth-footer-btn">
-								Don't have an account? Create one
+								Request membership / Create account
 							</IonButton>
 						</IonCardContent>
 					</IonCard>

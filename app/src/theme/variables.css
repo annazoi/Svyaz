@@ -1,96 +1,104 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-/** Ionic CSS Variables **/
 :root {
-	--ion-color-reverse: rgb(0, 0, 0);
-	--ion-color-placeholder: #76857d;
-	--ion-color-modal: #d6e1db;
-	--ion-color-settings: #b5c3bb;
+	--font-display: 'Cormorant Garamond', 'Georgia', serif;
+	--font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-	/* Gorgeous Oil Green Palette */
-	--oil-green-50: #f1f6f3;
-	--oil-green-100: #e0ede6;
-	--oil-green-200: #c4dcd0;
-	--oil-green-300: #9ac2af;
-	--oil-green-400: #688174;
-	--oil-green-500: #5a7065;
-	--oil-green-600: #4e6158;
-	--oil-green-700: #42524a;
-	--oil-green-800: #37433d;
-	--oil-green-900: #2d3732;
+	--ion-font-family: var(--font-sans);
 
-	/** primary **/
-	--ion-color-primary: var(--oil-green-400);
-	--ion-color-primary-rgb: 104, 129, 116;
-	--ion-color-primary-contrast: #ffffff;
-	--ion-color-primary-contrast-rgb: 255, 255, 255;
-	--ion-color-primary-shade: var(--oil-green-500);
-	--ion-color-primary-tint: #778e82;
+	--ion-color-reverse: rgb(20, 19, 18);
+	--ion-color-placeholder: #7a7369;
+	--ion-color-modal: #ebe8e2;
+	--ion-color-settings: #d4cfc4;
+
+	/* Neutral stone scale (kept as oil-green-* for compatibility across the app) */
+	--oil-green-50: #f7f6f4;
+	--oil-green-100: #eceae5;
+	--oil-green-200: #dad6ce;
+	--oil-green-300: #b8b1a4;
+	--oil-green-400: #8a8174;
+	--oil-green-500: #6b6356;
+	--oil-green-600: #524b41;
+	--oil-green-700: #3f3a33;
+	--oil-green-800: #2e2a26;
+	--oil-green-900: #1c1a18;
+
+	/** primary — muted bronze / charcoal **/
+	--ion-color-primary: var(--oil-green-600);
+	--ion-color-primary-rgb: 82, 75, 65;
+	--ion-color-primary-contrast: #faf9f7;
+	--ion-color-primary-contrast-rgb: 250, 249, 247;
+	--ion-color-primary-shade: var(--oil-green-700);
+	--ion-color-primary-tint: #6a6257;
 
 	/** secondary **/
-	--ion-color-secondary: #97a79e;
-	--ion-color-secondary-rgb: 151, 167, 158;
+	--ion-color-secondary: #9c9488;
+	--ion-color-secondary-rgb: 156, 148, 136;
 	--ion-color-secondary-contrast: #ffffff;
 	--ion-color-secondary-contrast-rgb: 255, 255, 255;
-	--ion-color-secondary-shade: #85938b;
-	--ion-color-secondary-tint: #a1b0a8;
+	--ion-color-secondary-shade: #898278;
+	--ion-color-secondary-tint: #a69f94;
 
 	/** success **/
-	--ion-color-success: #28ba62;
-	--ion-color-success-rgb: 40, 186, 98;
+	--ion-color-success: #3d7a5e;
+	--ion-color-success-rgb: 61, 122, 94;
 	--ion-color-success-contrast: #ffffff;
 	--ion-color-success-contrast-rgb: 255, 255, 255;
-	--ion-color-success-shade: #23a356;
-	--ion-color-success-tint: #3ec172;
+	--ion-color-success-shade: #366b53;
+	--ion-color-success-tint: #50876e;
 
 	/** warning **/
-	--ion-color-warning: #ffca22;
-	--ion-color-warning-rgb: 255, 202, 34;
-	--ion-color-warning-contrast: #000000;
-	--ion-color-warning-contrast-rgb: 0, 0, 0;
-	--ion-color-warning-shade: #e0b21e;
-	--ion-color-warning-tint: #ffcf38;
+	--ion-color-warning: #c9a227;
+	--ion-color-warning-rgb: 201, 162, 39;
+	--ion-color-warning-contrast: #14110d;
+	--ion-color-warning-contrast-rgb: 20, 17, 13;
+	--ion-color-warning-shade: #b18f22;
+	--ion-color-warning-tint: #ceab3d;
 
 	/** danger **/
-	--ion-color-danger: #ef4444;
-	--ion-color-danger-rgb: 239, 68, 68;
+	--ion-color-danger: #b45348;
+	--ion-color-danger-rgb: 180, 83, 72;
 	--ion-color-danger-contrast: #ffffff;
 	--ion-color-danger-contrast-rgb: 255, 255, 255;
-	--ion-color-danger-shade: #dc2626;
-	--ion-color-danger-tint: #f87171;
+	--ion-color-danger-shade: #9e493f;
+	--ion-color-danger-tint: #bc645a;
 
-	/** Layout Variables **/
-	--ion-background-color: #f7faf9;
-	--ion-text-color: #1a2420;
-	--ion-border-color: rgba(104, 129, 116, 0.1);
+	/** Layout **/
+	--ion-background-color: #f5f4f1;
+	--ion-text-color: #14110d;
+	--ion-border-color: rgba(20, 17, 13, 0.08);
 
 	--ion-item-background: #ffffff;
 	--ion-card-background: #ffffff;
-	--ion-toolbar-background: #ffffff;
+	--ion-toolbar-background: rgba(247, 246, 244, 0.82);
 	--ion-toolbar-color: var(--ion-text-color);
 
-	/* Fantasy Extras */
-	--fantasy-glow: 0 0 15px rgba(104, 129, 116, 0.3);
-	--fantasy-shadow: 0 10px 40px -10px rgba(104, 129, 116, 0.2);
+	--fantasy-glow: 0 1px 2px rgba(20, 17, 13, 0.05);
+	--fantasy-shadow: 0 16px 48px -16px rgba(20, 17, 13, 0.12);
 }
 
 /** Dark Mode **/
 body.dark {
-	--ion-background-color: #0c0f0e;
-	--ion-text-color: #e2e9e5;
-	--ion-border-color: rgba(104, 129, 116, 0.2);
-	--ion-item-background: #141a18;
-	--ion-card-background: #1a2320;
-	--ion-toolbar-background: #0c0f0e;
-	--ion-toolbar-color: #ffffff;
+	--ion-background-color: #0e0e0c;
+	--ion-text-color: #eceae6;
+	--ion-border-color: rgba(236, 234, 230, 0.08);
+	--ion-item-background: #171615;
+	--ion-card-background: #1a1917;
+	--ion-toolbar-background: rgba(14, 14, 12, 0.88);
+	--ion-toolbar-color: #eceae6;
 
-	--ion-color-reverse: white;
-	--ion-color-step-50: #141a18;
-	--ion-color-step-100: #1d2623;
+	--ion-color-reverse: #f5f4f1;
+	--ion-color-step-50: #171615;
+	--ion-color-step-100: #1f1e1c;
 
-	--fantasy-glow: 0 0 20px rgba(104, 129, 116, 0.4);
-	--fantasy-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.5);
+	--fantasy-glow: 0 0 0 1px rgba(236, 234, 230, 0.06);
+	--fantasy-shadow: 0 24px 56px -20px rgba(0, 0, 0, 0.55);
+}
+
+ion-app {
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
 }
 
 /* 
@@ -143,23 +151,23 @@ ion-content::part(background) {
 	}
 }
 
-/* Fantasy & Modern Effects */
+/* Refined surfaces */
 .glass-effect {
-	background: rgba(255, 255, 255, 0.45) !important;
-	backdrop-filter: blur(12px) saturate(160%) !important;
-	-webkit-backdrop-filter: blur(12px) saturate(160%) !important;
-	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(16px) saturate(140%) !important;
+	-webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+	border: 1px solid rgba(20, 17, 13, 0.06) !important;
 	box-shadow: var(--fantasy-shadow) !important;
 }
 
 body.dark .glass-effect {
-	background: rgba(20, 26, 24, 0.6) !important;
-	border: 1px solid rgba(255, 255, 255, 0.05) !important;
+	background: rgba(23, 22, 21, 0.75) !important;
+	border: 1px solid rgba(236, 234, 230, 0.06) !important;
 }
 
 .glow-on-hover:hover {
-	box-shadow: var(--fantasy-glow);
-	transform: translateY(-2px);
+	box-shadow: var(--fantasy-shadow);
+	transform: translateY(-1px);
 }
 
 /* Page Transitions & Entrances */
@@ -212,38 +220,47 @@ body.dark .glass-effect {
 	}
 }
 
-/* Gradient Backgrounds */
+/* Ambient page background */
 .bg-fantasy {
-	background: linear-gradient(135deg, var(--oil-green-50) 0%, #ffffff 100%);
+	background: radial-gradient(120% 80% at 100% 0%, var(--oil-green-100) 0%, transparent 45%),
+		linear-gradient(180deg, var(--ion-background-color) 0%, var(--oil-green-50) 100%);
 }
 
 body.dark .bg-fantasy {
-	background: radial-gradient(circle at top right, #1a2320 0%, #0c0f0e 100%);
+	background: radial-gradient(100% 60% at 80% 0%, #252320 0%, transparent 50%),
+		linear-gradient(180deg, var(--ion-background-color) 0%, #121110 100%);
 }
-/* Fantasy Input Styling */
+
+/* Form inputs */
 .modern-input {
 	--background: var(--ion-item-background) !important;
-	--border-radius: 22px !important;
-	--padding-start: 20px !important;
-	--padding-end: 20px !important;
+	--border-radius: 14px !important;
+	--padding-start: 18px !important;
+	--padding-end: 18px !important;
 	--highlight-height: 0;
-	margin-bottom: 24px;
-	/* border: 1.5px solid var(--oil-green-50); */
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	box-shadow: var(--fantasy-shadow);
-	border-radius: 20px;
+	margin-bottom: 20px;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	box-shadow: none;
+	border-radius: 14px;
+	border: 1px solid var(--ion-border-color);
 }
+
 .modern-input:focus-within {
-	border-color: var(--oil-green-400);
-	box-shadow: var(--fantasy-glow);
-	transform: translateY(-2px);
+	border-color: rgba(107, 99, 86, 0.45);
+	box-shadow: 0 0 0 3px rgba(107, 99, 86, 0.12);
+	transform: none;
 }
 
 body.dark .modern-input {
 	--background: var(--ion-color-step-50) !important;
-	border-color: var(--oil-green-800);
+	border-color: var(--ion-border-color);
 }
 
 body.dark .modern-input:focus-within {
-	border-color: var(--oil-green-300);
+	border-color: rgba(236, 234, 230, 0.15);
+	box-shadow: 0 0 0 3px rgba(236, 234, 230, 0.06);
+}
+
+.animate-in {
+	animation: fadeIn 0.55s ease-out forwards;
 }

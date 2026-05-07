@@ -5,10 +5,9 @@ import { getUsers } from '../../services/users';
 import { authStore } from '../../store/auth';
 import userDefaultAvatar from '../../assets/user.png';
 import './style.css';
-import { px } from 'framer-motion';
-
 interface SearchUsersProps {
 	onUsersFiltered?: (users: any[]) => void;
+	onQueryChange?: (query: string) => void;
 	placeholder: string;
 	className?: string;
 	type?: string;
@@ -26,6 +25,7 @@ const SearchUsers: React.FC<SearchUsersProps> = ({
 	selectedUsers,
 	existingMembers,
 	onUsersFiltered,
+	onQueryChange,
 	style,
 }) => {
 	const { userId } = authStore((store: any) => store);
@@ -51,17 +51,20 @@ const SearchUsers: React.FC<SearchUsersProps> = ({
 		onUsersFiltered?.(filteredUsers);
 	}, [filteredUsers, onUsersFiltered]);
 
+	useEffect(() => {
+		onQueryChange?.(search);
+	}, [search, onQueryChange]);
+
 	return (
 		<div style={style} className={className}>
 			<IonSearchbar
 				onIonInput={(e) => setSearch(e.detail.value!)}
 				value={search}
-				debounce={500}
+				debounce={400}
 				onIonClear={() => setSearch('')}
 				placeholder={placeholder}
 				className="search-bar-modern"
-				mode="ios"
-				color="light"
+				mode="md"
 			/>
 
 			{type === 'group' && (
