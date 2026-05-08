@@ -1,29 +1,27 @@
 .show-hide-password {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	position: relative;
+	width: 100%;
+}
+
+.show-hide-password-input {
+	--padding-end: 52px !important;
 }
 
 .show-hide-password-button {
-	margin-left: 0.5rem;
-	border-radius: 20px;
-	min-height: 3rem;
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	margin: 0;
+	--padding-start: 8px;
+	--padding-end: 8px;
+	--min-height: 34px;
+	--height: 34px;
+	--width: 34px;
+	--border-radius: 999px;
 }
 
 .show-hide-password-button::part(native) {
-	--ion-color-contrast: white;
-}
-
-.show-hide-password label {
-	margin-left: 1rem !important;
-}
-
-.show-hide-password-button::part(native) {
-	border-radius: 20px;
-}
-
-@media screen and (max-width: 177px) {
-	.show-hide-password {
-		flex-direction: column;
-	}
+	border-radius: 999px;
 }

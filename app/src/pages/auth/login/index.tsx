@@ -5,7 +5,6 @@ import {
 	useIonRouter,
 	IonCard,
 	IonCardContent,
-	IonProgressBar,
 	IonText,
 } from '@ionic/react';
 import React, { useState } from 'react';
@@ -20,6 +19,7 @@ import HidePassword from '../../../components/HidePassword';
 import Toast from '../../../components/ui/Toast';
 import './style.css';
 import Input from '../../../components/ui/Input';
+import Loading from '../../../components/Loading';
 
 const Login: React.FC = () => {
 	const router = useIonRouter();
@@ -67,15 +67,26 @@ const Login: React.FC = () => {
 
 	return (
 		<IonPage className="auth-page">
-			<IonContent className="ion-padding modern-container bg-modern">
-				<div className="animate-in" style={{ marginTop: 'clamp(2rem, 6vh, 4rem)' }}>
-					<div className="auth-header-mark">
+			<IonContent className="ion-padding modern-container">
+				<div className="animate-in auth-shell">
+					<div className="auth-brand-panel">
 						<div className="auth-logo-container auth-logo-container--minimal">
+							<img src="/logo.png" alt="Svyaz logo" className="auth-logo-image" />
 							<span className="auth-tagline">Private messaging</span>
 							<span className="auth-wordmark">Svyaz</span>
+							<p className="auth-brand-intro">A calm, private space for your daily conversations.</p>
 						</div>
+					</div>
 
-						<div className="auth-header-text">
+					<div className="auth-form-panel">
+						<div className="auth-mobile-brand">
+							<img src="/logo.png" alt="Svyaz" className="auth-mobile-brand-logo" />
+						</div>
+						<div className="auth-mobile-info">
+							<h2>Welcome back</h2>
+							<p>Sign in to continue to your private conversations.</p>
+						</div>
+						<div className="auth-header-text auth-header-text--form">
 							<IonText>
 								<h1>Sign in</h1>
 							</IonText>
@@ -83,45 +94,41 @@ const Login: React.FC = () => {
 								<p>Continue to your conversations. Access is tied to your account only.</p>
 							</IonText>
 						</div>
-					</div>
+						<IonCard className="auth-card glass-effect">
+							<IonCardContent className="auth-form-container">
+								<form onSubmit={handleSubmit(onSubmit)}>
+									<Input
+										label="Username"
+										register={register('username')}
+										className="modern-input"
+										placeholder="Your username"
+									/>
+									{errors.username && <div className="field-error">{errors.username.message}</div>}
 
-					<IonCard className="auth-card glass-effect">
-						<IonCardContent className="auth-form-container">
-							{isLoading && (
-								<IonProgressBar type="indeterminate" style={{ borderRadius: '4px', marginBottom: '15px' }} />
-							)}
+									<HidePassword register={register} />
+									{errors.password && <div className="field-error">{errors.password.message}</div>}
 
-							<form onSubmit={handleSubmit(onSubmit)}>
-								<Input
-									label="Username"
-									register={register('username')}
-									className="modern-input"
-									placeholder="Your username"
-								/>
-								{errors.username && <div className="field-error">{errors.username.message}</div>}
+									<IonButton
+										type="submit"
+										expand="block"
+										className="auth-submit-btn"
+										disabled={isLoading}
+										color="primary"
+									>
+										{isLoading ? 'Signing in…' : 'Continue'}
+									</IonButton>
+								</form>
 
-								<HidePassword register={register} />
-								{errors.password && <div className="field-error">{errors.password.message}</div>}
-
-								<IonButton
-									type="submit"
-									expand="block"
-									className="auth-submit-btn"
-									disabled={isLoading}
-									color="primary"
-								>
-									{isLoading ? 'Signing in…' : 'Continue'}
+								<IonButton routerLink="/register" expand="block" fill="clear" className="auth-footer-btn">
+									Create account
 								</IonButton>
-							</form>
-
-							<IonButton routerLink="/register" expand="block" fill="clear" className="auth-footer-btn">
-								Create account
-							</IonButton>
-						</IonCardContent>
-					</IonCard>
+							</IonCardContent>
+						</IonCard>
+					</div>
 				</div>
 
 				<Toast showToast={showToast} message={toastMessage} setShowToast={setShowToast} isError={isError} />
+				<Loading showLoading={isLoading} message="Signing you in..." />
 			</IonContent>
 		</IonPage>
 	);

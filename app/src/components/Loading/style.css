@@ -1,0 +1,29 @@
+.app-loading-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	background: rgba(0, 0, 0, 0.42);
+	backdrop-filter: blur(2px);
+	display: grid;
+	place-items: center;
+}
+
+.app-loading-card {
+	min-width: 230px;
+	max-width: calc(100vw - 32px);
+	padding: 14px 16px;
+	border-radius: 12px;
+	border: 1px solid var(--ion-border-color);
+	background: var(--ion-item-background);
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+}
+
+.app-loading-card p {
+	margin: 0;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--ion-text-color);
+}

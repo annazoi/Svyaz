@@ -4,7 +4,6 @@ import {
 	IonCardContent,
 	IonContent,
 	IonPage,
-	IonProgressBar,
 	IonText,
 	useIonRouter,
 } from '@ionic/react';
@@ -21,6 +20,7 @@ import { authStore } from '../../../store/auth';
 import Toast from '../../../components/ui/Toast';
 import HidePassword from '../../../components/HidePassword';
 import Input from '../../../components/ui/Input';
+import Loading from '../../../components/Loading';
 
 const Register: React.FC = () => {
 	const { logIn } = authStore((store: any) => store);
@@ -76,15 +76,26 @@ const Register: React.FC = () => {
 
 	return (
 		<IonPage className="auth-page">
-			<IonContent className="ion-padding modern-container bg-modern">
-				<div className="animate-in" style={{ marginTop: 'clamp(1.5rem, 4vh, 2.5rem)' }}>
-					<div className="auth-header-mark">
+			<IonContent className="ion-padding modern-container">
+				<div className="animate-in auth-shell">
+					<div className="auth-brand-panel">
 						<div className="auth-logo-container auth-logo-container--minimal">
+							<img src="/logo.png" alt="Svyaz logo" className="auth-logo-image" />
 							<span className="auth-tagline">Private messaging</span>
 							<span className="auth-wordmark">Svyaz</span>
+							<p className="auth-brand-intro">A calm, private space for your daily conversations.</p>
 						</div>
+					</div>
 
-						<div className="auth-header-text">
+					<div className="auth-form-panel">
+						<div className="auth-mobile-brand">
+							<img src="/logo.png" alt="Svyaz" className="auth-mobile-brand-logo" />
+						</div>
+						<div className="auth-mobile-info">
+							<h2>Create account</h2>
+							<p>Join and start your private conversations in seconds.</p>
+						</div>
+						<div className="auth-header-text auth-header-text--form">
 							<IonText>
 								<h1>Create account</h1>
 							</IonText>
@@ -92,58 +103,54 @@ const Register: React.FC = () => {
 								<p>Register with a unique name and secure password. Your threads stay private to you.</p>
 							</IonText>
 						</div>
-					</div>
+						<IonCard className="auth-card glass-effect">
+							<IonCardContent className="auth-form-container">
+								<form onSubmit={handleSubmit(onSubmit)}>
+									<Input
+										label="Username"
+										register={register('username')}
+										className="modern-input"
+										placeholder="Distinctive, memorable"
+									/>
+									{errors.username && <div className="field-error">{errors.username.message}</div>}
 
-					<IonCard className="auth-card glass-effect">
-						<IonCardContent className="auth-form-container">
-							{isLoading && (
-								<IonProgressBar type="indeterminate" style={{ borderRadius: '6px', marginBottom: '18px' }} />
-							)}
+									<Input
+										label="Phone"
+										register={register('phone')}
+										className="modern-input"
+										placeholder="+1 ··· ··· ····"
+									/>
+									{errors.phone && <div className="field-error">{errors.phone.message}</div>}
 
-							<form onSubmit={handleSubmit(onSubmit)}>
-								<Input
-									label="Username"
-									register={register('username')}
-									className="modern-input"
-									placeholder="Distinctive, memorable"
-								/>
-								{errors.username && <div className="field-error">{errors.username.message}</div>}
+									<HidePassword register={register} />
+									{errors.password && <div className="field-error">{errors.password.message}</div>}
 
-								<Input
-									label="Phone"
-									register={register('phone')}
-									className="modern-input"
-									placeholder="+1 ··· ··· ····"
-								/>
-								{errors.phone && <div className="field-error">{errors.phone.message}</div>}
+									<div className="auth-avatar-section">
+										<IonText className="auth-avatar-label">Portrait (optional)</IonText>
+										<ImagePicker onChange={handleImage} />
+									</div>
 
-								<HidePassword register={register} />
-								{errors.password && <div className="field-error">{errors.password.message}</div>}
+									<IonButton
+										type="submit"
+										expand="block"
+										className="auth-submit-btn"
+										disabled={isLoading}
+										color="primary"
+									>
+										{isLoading ? 'Creating profile…' : 'Complete registration'}
+									</IonButton>
+								</form>
 
-								<div className="auth-avatar-section">
-									<IonText className="auth-avatar-label">Portrait (optional)</IonText>
-									<ImagePicker onChange={handleImage} />
-								</div>
-
-								<IonButton
-									type="submit"
-									expand="block"
-									className="auth-submit-btn"
-									disabled={isLoading}
-									color="primary"
-								>
-									{isLoading ? 'Creating profile…' : 'Complete registration'}
+								<IonButton routerLink="/login" expand="block" fill="clear" className="auth-footer-btn">
+									Already registered? Sign in
 								</IonButton>
-							</form>
-
-							<IonButton routerLink="/login" expand="block" fill="clear" className="auth-footer-btn">
-								Already registered? Sign in
-							</IonButton>
-						</IonCardContent>
-					</IonCard>
+							</IonCardContent>
+						</IonCard>
+					</div>
 				</div>
 
 				<Toast showToast={showToast} message={toastMessage} setShowToast={setShowToast} isError={isError} />
+				<Loading showLoading={isLoading} message="Creating your account..." />
 			</IonContent>
 		</IonPage>
 	);
