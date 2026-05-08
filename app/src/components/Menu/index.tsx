@@ -23,7 +23,7 @@ const Menu: React.FC = () => {
 			<IonMenu contentId="main-content" type="overlay">
 				<IonHeader className="ion-no-border">
 					<IonToolbar className="menu-header-toolbar">
-						<Title title="Aura" className="menu-title" />
+						<Title title="Svyaz" className="menu-title" />
 					</IonToolbar>
 				</IonHeader>
 				<IonContent className="menu-content">

@@ -100,15 +100,20 @@ ion-menu::part(backdrop) {
 	--background: var(--ion-background-color);
 }
 
+.settings-shell {
+	padding: 10px;
+}
+
 .settings-profile-card {
 	background: var(--ion-item-background);
-	border-radius: 12px;
-	padding: 24px;
+	border-radius: 16px;
+	padding: 26px 20px 18px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 12px;
+	margin: 8px 8px 14px;
 	border: 1px solid var(--ion-border-color);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .settings-profile-card::before {
@@ -116,12 +121,12 @@ ion-menu::part(backdrop) {
 }
 
 .settings-avatar-large {
-	width: 88px;
-	height: 88px;
+	width: 94px;
+	height: 94px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 1px solid var(--ion-border-color);
-	margin-bottom: 12px;
+	margin-bottom: 14px;
 }
 
 body.dark .settings-avatar-large {
@@ -129,23 +134,29 @@ body.dark .settings-avatar-large {
 }
 
 .settings-username {
-	font-size: 1.125rem;
-	font-weight: 600;
+	font-size: 1.95rem;
+	font-weight: 700;
+	line-height: 1.1;
+	margin-bottom: 4px;
 	color: var(--ion-text-color);
+}
+
+.settings-subtitle {
+	font-size: 0.95rem;
 }
 
 .settings-list-card {
 	background: var(--ion-item-background);
-	border-radius: 12px;
-	margin: 12px;
+	border-radius: 16px;
+	margin: 8px;
 	overflow: hidden;
 	border: 1px solid var(--ion-border-color);
 }
 
 .settings-item {
-	--padding-start: 16px;
-	--inner-padding-end: 16px;
-	--min-height: 56px;
+	--padding-start: 14px;
+	--inner-padding-end: 14px;
+	--min-height: 72px;
 	--background: transparent;
 }
 
@@ -158,10 +169,10 @@ body.dark .settings-item:hover {
 }
 
 .settings-icon-box {
-	width: 36px;
-	height: 36px;
+	width: 44px;
+	height: 44px;
 	background: var(--oil-green-50);
-	border-radius: 8px;
+	border-radius: 12px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -175,6 +186,25 @@ body.dark .settings-icon-box {
 }
 
 .settings-toggle-item {
-	font-weight: 500;
-	font-size: 0.9375rem;
+	font-weight: 600;
+	font-size: 1.05rem;
+}
+
+.settings-item ion-label h2 {
+	margin: 0 0 4px;
+	font-size: 1.125rem;
+	font-weight: 700;
+	color: var(--ion-text-color);
+}
+
+.settings-item ion-label p {
+	margin: 0;
+	font-size: 0.95rem;
+	color: var(--ion-color-placeholder);
+}
+
+.settings-toggle-item ion-label {
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: var(--ion-text-color);
 }

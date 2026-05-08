@@ -1,6 +1,7 @@
 const Chat = require('../model/Chat');
 const FCM = require('fcm-node');
-const fcm = new FCM(process.env.API_KEY);
+const fcmServerKey = process.env.SERVER_KEY;
+const fcm = fcmServerKey ? new FCM(fcmServerKey) : null;
 const uploadImage = require('../lib/uploadImage');
 
 const createMessage = async (req, res) => {
@@ -42,11 +43,13 @@ const createMessage = async (req, res) => {
 				},
 			};
 
-			fcm.send(message, function (err, response) {
-				if (err) {
-					console.log('Something has gone wrong!');
-				}
-			});
+			if (fcm) {
+				fcm.send(message, function (err, response) {
+					if (err) {
+						console.log('Something has gone wrong!');
+					}
+				});
+			}
 		});
 
 		res.status(200).json({ message: 'ok', chat: chat });

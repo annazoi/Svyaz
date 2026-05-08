@@ -5,7 +5,7 @@
 	--icon-color: var(--ion-color-placeholder) !important;
 	--placeholder-color: var(--ion-color-placeholder) !important;
 	--placeholder-opacity: 1 !important;
-	border: 1px solid var(--ion-border-color) !important;
+	/* border: 1px solid var(--ion-border-color) !important; */
 	padding: 0 !important;
 	min-height: 44px !important;
 	height: 44px !important;

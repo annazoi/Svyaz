@@ -19,7 +19,7 @@ ion-modal.side-or-modal {
 	flex-direction: column;
 	overflow: hidden;
 	opacity: 0;
-	transform: translateX(16px);
+	transform: translateX(100%);
 	transition: width 240ms ease, flex-basis 240ms ease, opacity 220ms ease, transform 220ms ease;
 	will-change: opacity, transform;
 }

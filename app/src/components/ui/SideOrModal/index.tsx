@@ -36,12 +36,15 @@ const SideOrModal: React.FC<SideOrModalProps> = ({ isOpen, title, onClose, child
 		}
 		if (isOpen) {
 			setRenderDesk(true);
-			requestAnimationFrame(() => setDeskOpen(true));
+			// Let the initial closed state paint first, then trigger the enter transition.
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => setDeskOpen(true));
+			});
 			return;
 		}
 		if (renderDesk) {
 			setDeskOpen(false);
-			const t = setTimeout(() => setRenderDesk(false), 220);
+			const t = setTimeout(() => setRenderDesk(false), 260);
 			return () => clearTimeout(t);
 		}
 	}, [desk, isOpen, renderDesk]);

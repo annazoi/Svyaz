@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
 	appId: 'io.ionic.starter',
-	appName: 'Aura',
+	appName: 'Svyaz',
 	webDir: 'dist',
 	bundledWebRuntime: false,
 	server: {

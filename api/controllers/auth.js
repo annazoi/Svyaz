@@ -52,7 +52,6 @@ const register = async (req, res, next) => {
 				username: createdUser.username,
 			},
 			process.env.JWT_SECRET
-			// { expiresIn: "" }
 		);
 		res.status(201).json({
 			userId: createdUser.id,

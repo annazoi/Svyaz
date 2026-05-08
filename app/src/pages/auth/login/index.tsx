@@ -72,7 +72,7 @@ const Login: React.FC = () => {
 					<div className="auth-header-mark">
 						<div className="auth-logo-container auth-logo-container--minimal">
 							<span className="auth-tagline">Private messaging</span>
-							<span className="auth-wordmark">Aura</span>
+							<span className="auth-wordmark">Svyaz</span>
 						</div>
 
 						<div className="auth-header-text">
@@ -115,7 +115,7 @@ const Login: React.FC = () => {
 							</form>
 
 							<IonButton routerLink="/register" expand="block" fill="clear" className="auth-footer-btn">
-								Request membership / Create account
+								Create account
 							</IonButton>
 						</IonCardContent>
 					</IonCard>

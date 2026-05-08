@@ -1,12 +1,11 @@
-import { IonContent, IonIcon, IonItem, IonAvatar, IonToggle, IonText, IonButton, IonLabel } from '@ionic/react';
+import { IonContent, IonIcon, IonItem, IonToggle, IonText, IonLabel } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { authStore } from '../../../store/auth';
-import { arrowForward, settings, sunny } from 'ionicons/icons';
+import { settings, sunny } from 'ionicons/icons';
 import userDefaulfAvatar from '../../../assets/user.png';
 import './style.css';
 import Modal from '../../../components/ui/Modal';
 import Account from './Account';
-import Title from '../../../components/ui/Title';
 
 const Settings: React.FC = () => {
 	const { avatar, username } = authStore((store: any) => store);
@@ -39,16 +38,17 @@ const Settings: React.FC = () => {
 
 	return (
 		<IonContent className="settings-content">
-			<div className="animate-in">
+			<div className="animate-in settings-shell">
 				{/* Profile Header */}
 				<div className="settings-profile-card">
 					<img src={avatar ? avatar : userDefaulfAvatar} className="settings-avatar-large" alt="Profile" />
 					<div className="settings-username">{username}</div>
-					<IonText color="medium" style={{ fontSize: '14px' }}>
+					<IonText color="medium" className="settings-subtitle">
 						Active Account
 					</IonText>
 				</div>
 
+				
 				<div className="menu-section-label">Preferences</div>
 				<div className="settings-list-card">
 					<IonItem lines="full" className="settings-item settings-toggle-item">
@@ -82,7 +82,7 @@ const Settings: React.FC = () => {
 							<IonIcon icon={settings} />
 						</div>
 						<IonLabel>
-							<h2 style={{ fontWeight: '600' }}>Account Settings</h2>
+							<h2>Account Settings</h2>
 							<p>Username, Phone, Password</p>
 						</IonLabel>
 					</IonItem>

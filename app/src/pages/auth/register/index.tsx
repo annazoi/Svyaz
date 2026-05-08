@@ -81,12 +81,12 @@ const Register: React.FC = () => {
 					<div className="auth-header-mark">
 						<div className="auth-logo-container auth-logo-container--minimal">
 							<span className="auth-tagline">Private messaging</span>
-							<span className="auth-wordmark">Aura</span>
+							<span className="auth-wordmark">Svyaz</span>
 						</div>
 
 						<div className="auth-header-text">
 							<IonText>
-								<h1>Membership</h1>
+								<h1>Create account</h1>
 							</IonText>
 							<IonText color="medium">
 								<p>Register with a unique name and secure password. Your threads stay private to you.</p>
