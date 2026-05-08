@@ -207,6 +207,49 @@ body.dark .auth-avatar-label {
 	color: rgba(236, 234, 230, 0.55);
 }
 
+body.dark .auth-wordmark {
+	color: #d8d1c6;
+}
+
+body.dark .auth-tagline {
+	color: #a79f92;
+}
+
+body.dark .auth-brand-intro,
+body.dark .auth-header-text p {
+	color: #a9a39a;
+}
+
+body.dark .auth-header-text h1 {
+	color: #efede8;
+}
+
+body.dark .auth-card {
+	background: #1f1f1d;
+	border-color: #34332f;
+	box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+body.dark .input-container {
+	--background-color: #1f1f1d !important;
+	background-color: #1f1f1d !important;
+	border-color: #3a3935;
+}
+
+body.dark .auth-page ion-input::part(native) {
+	color: #f0eeea;
+}
+
+body.dark .auth-submit-btn {
+	--background: #8a7f70;
+	--color: #11100f;
+}
+
+body.dark .auth-footer-btn {
+	--color: #d2cbc0;
+	opacity: 0.95;
+}
+
 .input-container {
 	--background-color: var(--ion-item-background) !important;
 	background-color: var(--ion-item-background) !important;
@@ -270,6 +313,10 @@ ion-input {
 		position: relative;
 	}
 
+	body.dark .auth-shell {
+		background: linear-gradient(90deg, #141413 0 50%, #191917 50% 100%);
+	}
+
 	.auth-shell::after {
 		content: '';
 		position: absolute;
@@ -280,6 +327,10 @@ ion-input {
 		background: rgba(28, 25, 21, 0.06);
 		transform: translateX(-0.5px);
 
+	}
+
+	body.dark .auth-shell::after {
+		background: rgba(236, 234, 230, 0.1);
 	}
 
 	.auth-brand-panel,
@@ -356,6 +407,16 @@ ion-input {
 		--auth-mobile-surface: #f1f0ee;
 	}
 
+	body.dark .auth-page {
+		--auth-mobile-surface: #171715;
+	}
+
+	body.dark .auth-form-panel {
+		border: 0 !important;
+		outline: 0 !important;
+		box-shadow: none !important;
+	}
+
 	.auth-page ion-content {
 		--padding-start: 0;
 		--padding-end: 0;
@@ -414,11 +475,19 @@ ion-input {
 		color: #4f4841;
 	}
 
+	body.dark .auth-mobile-info h2 {
+		color: #ebe8e2;
+	}
+
 	.auth-mobile-info p {
 		margin: 0;
 		font-size: 0.82rem;
 		line-height: 1.4;
 		color: #7b746d;
+	}
+
+	body.dark .auth-mobile-info p {
+		color: #ada79d;
 	}
 
 	.auth-form-panel {
@@ -432,6 +501,23 @@ ion-input {
 		box-shadow: none;
 		--box-shadow: none;
 		padding: 0;
+	}
+
+	body.dark .auth-card,
+	body.dark .auth-card.ion-card,
+	body.dark .auth-card.glass-effect,
+	body.dark .auth-form-container {
+		border: 0 !important;
+		outline: 0 !important;
+		box-shadow: none !important;
+		--box-shadow: none !important;
+	}
+
+	body.dark .auth-card::part(native),
+	body.dark .auth-card.glass-effect::part(native) {
+		border: 0 !important;
+		box-shadow: none !important;
+		background: transparent !important;
 	}
 
 	.auth-card.ion-card {
@@ -474,6 +560,12 @@ ion-input {
 		border-radius: 0 !important;
 	}
 
+	body.dark .auth-form-panel .input-container {
+		--background-color: var(--auth-mobile-surface) !important;
+		background: var(--auth-mobile-surface) !important;
+		border-bottom-color: #938a7e;
+	}
+
 	.auth-form-panel .input-container,
 	.auth-form-panel .input-container::part(native),
 	.auth-form-panel .input-container::part(container) {
@@ -505,6 +597,18 @@ ion-input {
 		font-weight: 500;
 	}
 
+	body.dark .auth-form-panel ion-input::part(label) {
+		color: #b4aea4;
+	}
+
+	body.dark .auth-form-panel ion-input::part(native) {
+		color: #f0ede7;
+	}
+
+	body.dark .auth-form-panel .modern-input:focus-within {
+		box-shadow: none !important;
+	}
+
 	.show-hide-password-button {
 		right: -2px;
 	}
@@ -522,10 +626,19 @@ ion-input {
 		text-transform: none;
 	}
 
+	body.dark .auth-submit-btn {
+		--background: #938777;
+		--color: #171512;
+	}
+
 	.auth-footer-btn {
 		--color: #5f5750;
 		font-size: 1rem;
 		font-weight: 600;
 		margin-top: 0.85rem;
+	}
+
+	body.dark .auth-footer-btn {
+		--color: #d6cec2;
 	}
 }
