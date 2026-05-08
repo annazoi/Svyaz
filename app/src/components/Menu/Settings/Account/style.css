@@ -35,7 +35,7 @@
 }
 
 ion-modal.modern-modal.account-modal {
-	--width: min(520px, calc(100vw - 44px));
+	--width: min(580px, calc(100vw - 28px));
 	--height: min(640px, 88vh);
 	--max-height: 88vh;
 	--offset-y: 0px;
@@ -48,7 +48,7 @@ ion-modal.modern-modal.account-modal::part(content) {
 
 @media (max-width: 640px) {
 	ion-modal.modern-modal.account-modal {
-		--width: min(500px, calc(100vw - 24px));
+		--width: min(570px, calc(100vw - 26px));
 		--height: min(680px, 92vh);
 		--max-height: 92vh;
 	}

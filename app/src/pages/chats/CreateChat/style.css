@@ -1,5 +1,5 @@
 .new-chat-sheet {
-	padding: 12px 16px 28px;
+	padding: 18px 22px 34px;
 }
 
 .new-chat-group-btn {
@@ -120,7 +120,15 @@ body.dark .new-chat-peer:active {
 	--background: var(--ion-item-background);
 	--border-radius: 10px;
 	--padding-start: 14px;
+	--padding-top: 14px;
+	--padding-bottom: 14px;
 	margin-bottom: 16px;
+}
+
+.group-input-container::part(native) {
+	display: flex;
+	align-items: center;
+	line-height: 1.2;
 }
 
 .modal-field-label {
@@ -134,4 +142,18 @@ body.dark .new-chat-peer:active {
 
 .group-modal-body .modal-field-label.spaced {
 	margin-top: 16px;
+}
+
+.group-modal-body {
+	padding-top: 22px;
+}
+
+@media (max-width: 560px) {
+	.new-chat-sheet {
+		padding: 14px 16px 28px;
+	}
+
+	.group-modal-body {
+		padding-top: 18px;
+	}
 }
