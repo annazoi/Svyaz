@@ -181,6 +181,8 @@ const Chats: React.FC = () => {
 				onClose={setOpenCreateChat}
 				title="New conversation"
 				closeModal={() => setOpenCreateChat(false)}
+				modalClassName="create-chat-modal"
+				presentation="dialog"
 			>
 				<CreateChat closeModal={() => setOpenCreateChat(false)} refetch={refetch} />
 			</Modal>

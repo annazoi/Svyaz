@@ -96,24 +96,48 @@ ion-menu::part(backdrop) {
 
 /* Settings (modal) */
 
+ion-modal.modern-modal.settings-modal {
+	--width: min(580px, calc(100vw - 28px));
+	--height: min(600px, 88vh);
+	--max-height: 88vh;
+	--offset-y: 0px;
+	--border-radius: 16px;
+	--box-shadow: 0 20px 54px rgba(22, 20, 18, 0.26);
+}
+
+ion-modal.modern-modal.settings-modal::part(content) {
+	height: 100%;
+	max-height: 88vh;
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+ion-modal.modern-modal.settings-modal.modern-modal-sheet::part(handle) {
+	display: none;
+}
+
+ion-modal.modern-modal.settings-modal::part(backdrop) {
+	--backdrop-opacity: 0.52;
+}
+
 .settings-content {
-	--background: var(--ion-background-color);
+	--background: #f6f5f4;
 }
 
 .settings-shell {
-	padding: 10px;
+	padding: 14px 14px calc(12px + env(safe-area-inset-bottom));
 }
 
 .settings-profile-card {
-	background: var(--ion-item-background);
-	border-radius: 16px;
-	padding: 26px 20px 18px;
+	background: #f8f7f6;
+	border-radius: 12px;
+	padding: 20px 14px 14px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 8px 8px 14px;
-	border: 1px solid var(--ion-border-color);
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+	margin: 0 2px 12px;
+	border: 1px solid #e3e0dd;
+	box-shadow: none;
 }
 
 .settings-profile-card::before {
@@ -121,12 +145,12 @@ ion-menu::part(backdrop) {
 }
 
 .settings-avatar-large {
-	width: 94px;
-	height: 94px;
+	width: 86px;
+	height: 86px;
 	border-radius: 50%;
 	object-fit: cover;
-	border: 1px solid var(--ion-border-color);
-	margin-bottom: 14px;
+	border: 1px solid #e0dcd8;
+	margin-bottom: 10px;
 }
 
 body.dark .settings-avatar-large {
@@ -134,34 +158,45 @@ body.dark .settings-avatar-large {
 }
 
 .settings-username {
-	font-size: 1.95rem;
+	font-size: 2rem;
 	font-weight: 700;
-	line-height: 1.1;
-	margin-bottom: 4px;
+	line-height: 1.03;
+	margin-bottom: 3px;
 	color: var(--ion-text-color);
 }
 
 .settings-subtitle {
-	font-size: 0.95rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.settings-section-label {
+	font-family: var(--font-display);
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.1;
+	margin: 0 2px 10px;
+	color: #262321;
 }
 
 .settings-list-card {
-	background: var(--ion-item-background);
-	border-radius: 16px;
-	margin: 8px;
+	background: #f8f7f6;
+	border-radius: 12px;
+	margin: 0 2px 16px;
 	overflow: hidden;
-	border: 1px solid var(--ion-border-color);
+	border: 1px solid #e3e0dd;
 }
 
 .settings-item {
-	--padding-start: 14px;
-	--inner-padding-end: 14px;
-	--min-height: 72px;
+	--padding-start: 12px;
+	--inner-padding-end: 12px;
+	--min-height: 62px;
 	--background: transparent;
+	--border-color: transparent;
 }
 
 .settings-item:hover {
-	--background: var(--oil-green-50);
+	--background: rgba(127, 117, 104, 0.08);
 }
 
 body.dark .settings-item:hover {
@@ -169,16 +204,23 @@ body.dark .settings-item:hover {
 }
 
 .settings-icon-box {
-	width: 44px;
-	height: 44px;
-	background: var(--oil-green-50);
-	border-radius: 12px;
+	width: 34px;
+	height: 34px;
+	background: #f1efed;
+	border-radius: 999px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-right: 12px;
-	color: var(--ion-color-primary);
-	border: 1px solid var(--ion-border-color);
+	margin-right: 10px;
+	color: #8f877f;
+	border: 1px solid #dfdbd7;
+	font-size: 1rem;
+}
+
+.settings-icon-box--sun {
+	background: #fff4cf;
+	color: #d7a018;
+	border-color: #f4deb5;
 }
 
 body.dark .settings-icon-box {
@@ -186,25 +228,142 @@ body.dark .settings-icon-box {
 }
 
 .settings-toggle-item {
+	--inner-border-width: 0;
+	--padding-start: 10px;
 	font-weight: 600;
-	font-size: 1.05rem;
+	font-size: 1rem;
 }
 
 .settings-item ion-label h2 {
-	margin: 0 0 4px;
-	font-size: 1.125rem;
+	margin: 0 0 2px;
+	font-size: 1.02rem;
 	font-weight: 700;
-	color: var(--ion-text-color);
+	color: #2f2b28;
 }
 
 .settings-item ion-label p {
 	margin: 0;
-	font-size: 0.95rem;
-	color: var(--ion-color-placeholder);
+	font-size: 0.86rem;
+	color: #8a837b;
 }
 
 .settings-toggle-item ion-label {
-	font-size: 1.15rem;
-	font-weight: 700;
-	color: var(--ion-text-color);
+	font-size: 1rem;
+	font-weight: 600;
+	color: #2f2b28;
+}
+
+.settings-toggle-item ion-toggle {
+	--track-background: #dedcda;
+	--track-background-checked: #b8b2aa;
+	--handle-background: #ffffff;
+	--handle-background-checked: #ffffff;
+	--handle-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14);
+	--handle-width: 18px;
+	--handle-height: 18px;
+	--handle-spacing: 2px;
+	transform: scale(0.9);
+}
+
+.settings-modal .modal-header-toolbar {
+	--background: #f8f7f6;
+	--padding-start: 10px;
+	--padding-end: 10px;
+	--padding-top: 8px;
+	--padding-bottom: 8px;
+	border-bottom: 1px solid #e3e0dd;
+}
+
+.settings-modal .modal-title {
+	font-family: var(--font-display);
+	font-size: 1.95rem !important;
+	font-weight: 500 !important;
+	color: #2c2825 !important;
+}
+
+.settings-modal .modal-close-btn {
+	--color: #8a847d;
+}
+
+body.dark ion-modal.modern-modal.settings-modal {
+	--box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .settings-content {
+	--background: #141413;
+}
+
+body.dark .settings-modal .modal-header-toolbar {
+	--background: #1b1b19;
+	border-bottom: 1px solid #2a2927;
+}
+
+body.dark .settings-modal .modal-title {
+	color: #eceae7 !important;
+}
+
+body.dark .settings-modal .modal-close-btn {
+	--color: #a7a29b;
+}
+
+body.dark .settings-profile-card,
+body.dark .settings-list-card {
+	background: #1f1f1d;
+	border-color: #343330;
+}
+
+body.dark .settings-section-label {
+	color: #e6e3de;
+}
+
+body.dark .settings-avatar-large {
+	border-color: #3a3936;
+}
+
+body.dark .settings-username {
+	color: #efede9;
+}
+
+body.dark .settings-subtitle {
+	color: #a9a49d;
+}
+
+body.dark .settings-icon-box {
+	background: #2a2927;
+	border-color: #3a3936;
+	color: #b4aea6;
+}
+
+body.dark .settings-icon-box--sun {
+	background: rgba(216, 166, 58, 0.14);
+	border-color: rgba(216, 166, 58, 0.34);
+	color: #e8bb54;
+}
+
+body.dark .settings-item ion-label h2,
+body.dark .settings-toggle-item ion-label {
+	color: #eceae7;
+}
+
+body.dark .settings-item ion-label p {
+	color: #aaa49d;
+}
+
+body.dark .settings-item:hover {
+	--background: rgba(236, 234, 230, 0.06);
+}
+
+body.dark .settings-toggle-item ion-toggle {
+	--track-background: #3a3937;
+	--track-background-checked: #7d7468;
+	--handle-background: #faf8f4;
+	--handle-background-checked: #ffffff;
+}
+
+@media (max-width: 640px) {
+	ion-modal.modern-modal.settings-modal {
+		--width: min(570px, calc(100vw - 26px));
+		--height: min(610px, 90vh);
+		--max-height: 90vh;
+	}
 }

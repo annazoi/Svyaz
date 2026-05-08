@@ -12,11 +12,22 @@ interface ModalProps {
 	onClose: (isOpen: boolean) => void;
 	children?: React.ReactNode;
 	closeModal?: () => void;
+	modalClassName?: string;
+	presentation?: 'auto' | 'dialog';
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, closeModal }) => {
+const Modal: React.FC<ModalProps> = ({
+	isOpen,
+	onClose,
+	title,
+	children,
+	closeModal,
+	modalClassName = '',
+	presentation = 'auto',
+}) => {
 	const desktop = useIsDesktop();
 	const modalRef = useRef<HTMLIonModalElement>(null);
+	const useSheet = !desktop && presentation === 'auto';
 
 	const handleClose = () => {
 		onClose(false);
@@ -29,21 +40,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, closeMo
 		});
 	}, []);
 
-	const sheetProps = desktop
-		? {}
-		: {
+	const sheetProps = useSheet
+		? {
 				initialBreakpoint: SHEET_BREAKPOINT,
 				breakpoints: [0, SHEET_BREAKPOINT, 1] as number[],
 				handle: true as const,
-			};
+			}
+		: {};
 
 	return (
 		<IonModal
 			ref={modalRef}
 			isOpen={isOpen}
 			onDidDismiss={handleClose}
-			onDidPresent={desktop ? undefined : snapSheetOpen}
-			className={`modern-modal ${desktop ? 'modern-modal-desktop' : 'modern-modal-sheet'}`}
+			onDidPresent={useSheet ? snapSheetOpen : undefined}
+			className={`modern-modal ${useSheet ? 'modern-modal-sheet' : 'modern-modal-desktop'} ${modalClassName}`.trim()}
 			{...sheetProps}
 		>
 			<IonHeader className="ion-no-border">

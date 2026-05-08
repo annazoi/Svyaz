@@ -1,13 +1,13 @@
 .account-container {
-	--background: var(--ion-background-color);
+	padding: 12px 12px calc(14px + env(safe-area-inset-bottom));
 }
 
 .account-form-card {
 	background: var(--ion-item-background);
-	border-radius: 20px;
+	border-radius: 16px;
 	padding: 8px;
-	margin: 16px;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+	margin: 0;
+	box-shadow: none;
 	border: 1px solid var(--ion-border-color);
 }
 
@@ -32,4 +32,24 @@
 
 .account-input {
 	margin-top: 16px;
+}
+
+ion-modal.modern-modal.account-modal {
+	--width: min(520px, calc(100vw - 44px));
+	--height: min(640px, 88vh);
+	--max-height: 88vh;
+	--offset-y: 0px;
+}
+
+ion-modal.modern-modal.account-modal::part(content) {
+	height: 100%;
+	max-height: 88vh;
+}
+
+@media (max-width: 640px) {
+	ion-modal.modern-modal.account-modal {
+		--width: min(500px, calc(100vw - 24px));
+		--height: min(680px, 92vh);
+		--max-height: 92vh;
+	}
 }

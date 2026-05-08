@@ -38,58 +38,60 @@ const Settings: React.FC = () => {
 
 	return (
 		<IonContent className="settings-content">
-			<div className="animate-in settings-shell">
-				{/* Profile Header */}
-				<div className="settings-profile-card">
-					<img src={avatar ? avatar : userDefaulfAvatar} className="settings-avatar-large" alt="Profile" />
-					<div className="settings-username">{username}</div>
-					<IonText color="medium" className="settings-subtitle">
-						Active Account
-					</IonText>
-				</div>
+			{!openAccount && (
+				<div className="animate-in settings-shell">
+					<div className="settings-profile-card">
+						<img src={avatar ? avatar : userDefaulfAvatar} className="settings-avatar-large" alt="Profile" />
+						<div className="settings-username">{username}</div>
+						<IonText color="medium" className="settings-subtitle">
+							Active Account
+						</IonText>
+					</div>
 
-				
-				<div className="menu-section-label">Preferences</div>
-				<div className="settings-list-card">
-					<IonItem lines="full" className="settings-item settings-toggle-item">
-						<div
-							slot="start"
-							className="settings-icon-box"
-							style={{ background: 'rgba(255, 192, 0, 0.1)', color: '#ffca22' }}
+					<div className="settings-section-label">Preferences</div>
+					<div className="settings-list-card">
+						<IonItem lines="none" className="settings-item settings-toggle-item">
+							<div slot="start" className="settings-icon-box settings-icon-box--sun">
+								<IonIcon icon={sunny} />
+							</div>
+							<IonLabel>Dark Mode</IonLabel>
+							<IonToggle
+								slot="end"
+								checked={themeToggle}
+								onIonChange={(e) => toggleDarkTheme(e.detail.checked)}
+								color="primary"
+							/>
+						</IonItem>
+					</div>
+
+					<div className="settings-section-label">Account</div>
+					<div className="settings-list-card">
+						<IonItem
+							button
+							detail={true}
+							onClick={() => setOpenAccount(true)}
+							className="settings-item"
+							lines="none"
 						>
-							<IonIcon icon={sunny} />
-						</div>
-						<IonLabel>Dark Mode</IonLabel>
-						<IonToggle
-							slot="end"
-							checked={themeToggle}
-							onIonChange={(e) => toggleDarkTheme(e.detail.checked)}
-							color="primary"
-						/>
-					</IonItem>
+							<div slot="start" className="settings-icon-box">
+								<IonIcon icon={settings} />
+							</div>
+							<IonLabel>
+								<h2>Account Settings</h2>
+								<p>Username, Phone, Password</p>
+							</IonLabel>
+						</IonItem>
+					</div>
 				</div>
+			)}
 
-				<div className="menu-section-label">Account</div>
-				<div className="settings-list-card">
-					<IonItem
-						button
-						detail={true}
-						onClick={() => setOpenAccount(true)}
-						className="settings-item"
-						lines="none"
-					>
-						<div slot="start" className="settings-icon-box">
-							<IonIcon icon={settings} />
-						</div>
-						<IonLabel>
-							<h2>Account Settings</h2>
-							<p>Username, Phone, Password</p>
-						</IonLabel>
-					</IonItem>
-				</div>
-			</div>
-
-			<Modal isOpen={openAccount} onClose={setOpenAccount} title="Update Profile">
+			<Modal
+				isOpen={openAccount}
+				onClose={setOpenAccount}
+				title="Update Profile"
+				modalClassName="account-modal"
+				presentation="dialog"
+			>
 				<Account />
 			</Modal>
 		</IonContent>

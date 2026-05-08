@@ -212,6 +212,20 @@ body.dark .chat-item-content:hover {
 	opacity: 0.94;
 }
 
+.create-chat-modal {
+	--width: min(420px, calc(100vw - 28px));
+	--height: auto;
+	--max-height: min(620px, 88vh);
+	--offset-y: 0px;
+	--border-radius: 16px;
+}
+
+ion-modal.modern-modal.create-chat-modal::part(content) {
+	max-height: min(620px, 88vh);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
 .chat-item-content.is-unread {
 	border-color: rgba(107, 99, 86, 0.18);
 }
@@ -229,4 +243,11 @@ body.dark .chat-item-content.is-unread {
 .chat-item-content .chat-time ion-text,
 .chat-item-content .chat-time {
 	font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+	.create-chat-modal {
+		--width: min(420px, calc(100vw - 20px));
+		--max-height: min(620px, 92vh);
+	}
 }

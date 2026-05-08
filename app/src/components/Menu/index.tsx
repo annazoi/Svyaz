@@ -1,4 +1,5 @@
 import { IonContent, IonHeader, IonIcon, IonMenu, IonToolbar } from '@ionic/react';
+import { menuController } from '@ionic/core';
 import React, { useState } from 'react';
 import './style.css';
 import Settings from './Settings';
@@ -18,6 +19,11 @@ const Menu: React.FC = () => {
 		router.push('/login', 'forward', 'replace');
 	};
 
+	const handleOpenSettings = async () => {
+		await menuController.close();
+		setOpenSettings(true);
+	};
+
 	return (
 		<>
 			<IonMenu contentId="main-content" type="overlay">
@@ -29,7 +35,7 @@ const Menu: React.FC = () => {
 				<IonContent className="menu-content">
 					<nav className="menu-nav" aria-label="Account">
 						<p className="menu-kicker">Workspace</p>
-						<button type="button" className="menu-link" onClick={() => setOpenSettings(true)}>
+						<button type="button" className="menu-link" onClick={handleOpenSettings}>
 							<IonIcon icon={settings} aria-hidden="true" />
 							<span>Settings</span>
 						</button>
@@ -45,6 +51,8 @@ const Menu: React.FC = () => {
 				onClose={setOpenSettings}
 				title="Settings"
 				closeModal={() => setOpenSettings(false)}
+				modalClassName="settings-modal"
+				presentation="dialog"
 			>
 				<Settings />
 			</Modal>

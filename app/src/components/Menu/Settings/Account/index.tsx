@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonInput, IonItem, IonText } from '@ionic/react';
+import { IonButton, IonCardContent, IonText } from '@ionic/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { getUser, updateUser } from '../../../../services/users';
@@ -76,7 +76,7 @@ const Settings: React.FC = () => {
 	};
 
 	return (
-		<IonContent className="account-container">
+		<div className="account-container">
 			<div className="animate-in">
 				<div className="account-form-card">
 					<IonCardContent>
@@ -127,7 +127,7 @@ const Settings: React.FC = () => {
 				</div>
 			</div>
 			<Toast showToast={showToast} message={message} setShowToast={setShowToast} isError={isError} />
-		</IonContent>
+		</div>
 	);
 };
 
