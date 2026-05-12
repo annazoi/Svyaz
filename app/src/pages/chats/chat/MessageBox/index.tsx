@@ -1,12 +1,12 @@
-import { IonAlert, IonText } from '@ionic/react';
+import { IonAlert } from '@ionic/react';
 import React, { useState } from 'react';
 import { authStore } from '../../../../store/auth';
 import { deleteMessage } from '../../../../services/chat';
 import { useMutation } from '@tanstack/react-query';
 import { useLongPress } from 'react-use';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './style.css';
-import Modal from '../../../../components/ui/Modal';
+import ImagePreviewLightbox from '../../../../components/ImagePreviewLightbox';
 import userDefaultAvatar from '../../../../assets/user.png';
 
 interface MessageConfig {
@@ -58,41 +58,41 @@ const MessageBox: React.FC<MessageConfig> = ({ message, chatId }) => {
 			<div
 				className={`message-bubble ${isMine ? 'mine' : 'theirs'}`}
 				{...(isMine ? longPressEvent : {})}
-				onClick={() => message.image && setOpenImage(true)}
 			>
 				{message.message && <p className="message-text">{message.message}</p>}
 
 				{message.image && (
-					<motion.img whileHover={{ scale: 1.02 }} src={message.image} alt="Sent" className="message-image" />
+					<motion.img
+						whileHover={{ scale: 1.02 }}
+						src={message.image}
+						alt="Sent"
+						className="message-image"
+						role="button"
+						tabIndex={0}
+						onClick={(e) => {
+							e.stopPropagation();
+							setOpenImage(true);
+						}}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault();
+								e.stopPropagation();
+								setOpenImage(true);
+							}
+						}}
+					/>
 				)}
 
 				<div className="message-time">{formatTime(message.createdAt)}</div>
 			</div>
 
-			<AnimatePresence>
-				{openImage && (
-					<Modal isOpen={openImage} onClose={() => setOpenImage(false)}>
-						<motion.div
-							initial={{ opacity: 0, scale: 0.9 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.9 }}
-							style={{
-								padding: '20px',
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								height: '100%',
-							}}
-						>
-							<img
-								src={message.image}
-								alt="Full size"
-								style={{ maxWidth: '100%', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
-							/>
-						</motion.div>
-					</Modal>
-				)}
-			</AnimatePresence>
+			{message.image && (
+				<ImagePreviewLightbox
+					isOpen={openImage}
+					imageSrc={message.image}
+					onClose={() => setOpenImage(false)}
+				/>
+			)}
 
 			<IonAlert
 				isOpen={openOptions}

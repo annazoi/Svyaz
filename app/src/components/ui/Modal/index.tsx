@@ -13,6 +13,7 @@ interface ModalProps {
 	children?: React.ReactNode;
 	closeModal?: () => void;
 	modalClassName?: string;
+	contentClassName?: string;
 	presentation?: 'auto' | 'dialog';
 }
 
@@ -23,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
 	children,
 	closeModal,
 	modalClassName = '',
+	contentClassName = '',
 	presentation = 'auto',
 }) => {
 	const desktop = useIsDesktop();
@@ -67,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({
 					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
-			<IonContent className="modern-modal-content">{children}</IonContent>
+			<IonContent className={`modern-modal-content ${contentClassName}`.trim()}>{children}</IonContent>
 		</IonModal>
 	);
 };

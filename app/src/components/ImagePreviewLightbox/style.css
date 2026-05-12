@@ -1,0 +1,70 @@
+ion-modal.image-preview-lightbox {
+	--width: 100%;
+	--height: 100%;
+	--border-radius: 0;
+	--backdrop-opacity: 0.78;
+	--background: transparent;
+	--box-shadow: none;
+}
+
+ion-modal.image-preview-lightbox::part(backdrop) {
+	background: #000;
+}
+
+ion-modal.image-preview-lightbox::part(content) {
+	background: transparent;
+}
+
+ion-content.image-preview-lightbox-content {
+	--background: transparent;
+}
+
+ion-content.image-preview-lightbox-content::part(scroll) {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.image-preview-lightbox-stage {
+	position: relative;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 100%;
+	padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+		max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+	box-sizing: border-box;
+}
+
+.image-preview-lightbox-img {
+	position: relative;
+	z-index: 1;
+	display: block;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	max-height: min(92dvh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px));
+	object-fit: contain;
+}
+
+.image-preview-lightbox-close {
+	position: absolute;
+	z-index: 2;
+	top: max(8px, env(safe-area-inset-top));
+	right: max(8px, env(safe-area-inset-right));
+	margin: 0;
+	--padding-start: 10px;
+	--padding-end: 10px;
+	--padding-top: 10px;
+	--padding-bottom: 10px;
+	min-width: 44px;
+	min-height: 44px;
+	--color: rgba(255, 255, 255, 0.55);
+	font-size: 1.75rem;
+}
+
+.image-preview-lightbox-close ion-icon {
+	pointer-events: none;
+}

@@ -71,12 +71,15 @@ body.dark .message-bubble.theirs {
 
 .message-image {
 	width: 100%;
-	max-width: 260px;
+	max-width: min(280px, 78vw);
+	max-height: min(320px, 42vh);
 	border-radius: 12px;
 	margin-top: 8px;
 	display: block;
 	cursor: pointer;
 	box-shadow: none;
+	object-fit: contain;
+	object-position: center;
 }
 
 .message-time {
